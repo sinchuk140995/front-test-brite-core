@@ -5,14 +5,8 @@
 </template>
 
 <script>
-  import InsuranceRisks from './InsuranceRisks.vue'
-
-
   export default {
     name: 'app',
-    components: {
-      InsuranceRisks
-    },
     data () {
       return {
       }
