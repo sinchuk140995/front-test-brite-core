@@ -5,7 +5,7 @@
     <ul>
       <div v-for="field in fields">
         <input type="text" name="field.name" v-model="field.value" />
-        <li :key="field.id">{{field.name}} | {{field.value}}</li>
+        <li :key="field.id">{{ field.name }} | {{ field.value }}</li>
       </div>
     </ul>
   </div>

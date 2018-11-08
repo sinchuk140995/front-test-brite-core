@@ -1,18 +1,33 @@
 <template>
-  <div id="app">
-    <insurance-risks></insurance-risks>
+  <div>
+    <header>
+    </header>
+
+    <NavMenu />
+
+    <router-view />
   </div>
 </template>
 
+
 <script>
-  export default {
+import NavMenu from './components/NavMenu.vue'
+
+export default {
     name: 'app',
     data () {
-      return {
-      }
+      return {}
     },
-  }
+    components: {
+      NavMenu
+    },
+}
 </script>
 
+
 <style>
+  * {
+    align: center;
+    text-align: center;
+  }
 </style>

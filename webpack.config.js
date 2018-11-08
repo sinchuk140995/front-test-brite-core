@@ -36,6 +36,11 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      // for ElementUI
+      {
+          test: /\.(eot|svg|ttf|woff|woff2)$/,
+          loader: 'url-loader'
       }
     ]
   },
