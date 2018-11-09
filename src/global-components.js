@@ -1,4 +1,6 @@
-// import Vue from 'vue'
-// import Loading from './components/Loading'
+import Vue from 'vue'
+import BaseForm from './components/BaseForm'
+import FormInput from './components/FormInput'
 
-// Vue.component('Loading', Loading)
+Vue.component('BaseForm', BaseForm)
+Vue.component('FormInput', FormInput)
