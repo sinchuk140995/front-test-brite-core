@@ -17,8 +17,10 @@
 <script>
 export default {
   data () {
-    error: null,
-    loading: false,
+    return {
+      error: null,
+      loading: false,
+    }
   },
   props: {
     title: {
