@@ -1,21 +1,17 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
-import Home from './components/Home'
-import ClientInsuranceRisks from './components/ClientInsuranceRisks'
+import InsuranceRiskList from './components/InsuranceRiskList'
+import InsuranceRisk from './components/InsuranceRisk'
 import InsuranceRiskCreate from './components/InsuranceRiskCreate'
-import InsuranceRiskDetail from './components/InsuranceRiskDetail'
-import Login from './components/Login'
 
 Vue.use(VueRouter)
 
 const routes = [
-    { path: '/', name: 'home', component: Home },
-    { path: '/login', name: 'login', component: Login },
-    { path: '/risk/create', name: 'clientInsuranceRiskCreate', component: InsuranceRiskCreate },
-    { path: '/risk/:id/add', name: 'clientInsuranceRiskAdd', component: InsuranceRiskDetail },
-    { path: '/risk/:id/edit', name: 'clientInsuranceRiskEdit', component: InsuranceRiskDetail },
-    { path: '/risk/client', name: 'clientInsuranceRisks', component: ClientInsuranceRisks },
+    { path: '/', name: 'home', component: InsuranceRiskList },
+    { path: '/client/risk/', name: 'clientInsuranceRisks', component: InsuranceRiskList },
+    { path: '/risk/create', name: 'insuranceRiskCreate', component: InsuranceRiskCreate },
+    { path: '/risk/:id/', name: 'insuranceRiskTake', component: InsuranceRisk },
+    { path: '/client/risk/:id/edit', name: 'clientInsuranceRiskEdit', component: InsuranceRisk },
 ]
 
 const router = new VueRouter({

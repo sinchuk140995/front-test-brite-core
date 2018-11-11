@@ -6,9 +6,6 @@
       <el-menu-item index="1">
         <router-link :to="{ name: 'clientInsuranceRisks' }" exact>Client insurance risks</router-link>
       </el-menu-item>
-      <el-menu-item index="2">
-        <router-link :to="{ name: 'clientInsuranceRiskCreate' }" exact>clientInsuranceRiskCreate</router-link>
-      </el-menu-item>
     </el-menu>
 </template>
 

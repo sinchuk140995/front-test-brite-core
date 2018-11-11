@@ -7,19 +7,19 @@
       <el-row>
         <h4>Fields</h4>
       </el-row>
-      <el-form-item v-for="field in fields">
+      <el-form-item v-for="field in fields" :key="field.id">
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="11">
             <el-input type="text" placeholder="Name" v-model="field.name"></el-input>
           </el-col>
           <el-col :span="11">
             <el-select @change="fieldChange(field)" v-model="field.type">
-              <el-option v-for="type in types" :value="type.htmlName" :label="type.name"></el-option>
+              <el-option v-for="type in types" :key="type.id" :value="type.htmlName" :label="type.name"></el-option>
             </el-select>
           </el-col>
         </el-row>
         <el-row v-if="field.type === 'select'">
-          <el-col :span="12" v-for="(option, index) in field.options">
+          <el-col :span="12" v-for="(option, index) in field.options" :key="index">
             <el-input type="text" placeholder="Options" v-model="field.options[index]"></el-input>
           </el-col>
 
@@ -44,9 +44,9 @@
         data() {
             return {
               types: [
-                { name: 'String', htmlName: 'text' },
-                { name: 'Number', htmlName: 'number' },
-                { name: 'Enum', htmlName: 'select' }
+                { id: 1, name: 'String', htmlName: 'text' },
+                { id: 2, name: 'Number', htmlName: 'number' },
+                { id: 3, name: 'Enum', htmlName: 'select' }
               ],
               name: '',
               fields: [],
@@ -76,11 +76,14 @@
               name: this.name,
               fields: this.fields,
             }
-            this.$http.post('http://localhost:8000/api/risk/create', data)
+            this.$http.post('http://localhost:8000/api/risk/create/', data)
               .then(({data}) => {
 
               })
-          }
+              .catch((error) => {
+
+              })
+          },
         },
     }
 </script>

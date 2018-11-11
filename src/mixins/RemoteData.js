@@ -1,4 +1,4 @@
-export default function (resources) {
+export default function (key) {
   return {
     data () {
       let initData = {
@@ -7,34 +7,54 @@ export default function (resources) {
         baseUrl: 'http://localhost:8000/'
       }
 
-      for (const key in resources) {
-          initData[key] = null
-          initData.remoteErrors[key] = null
-      }
+      initData[key] = {}
+      initData.remoteErrors[key] = null
 
       return initData
     },
+    // created () {
+    //   for (const key in resources) {
+    //     let url = resources[key]['url']
+
+    //     if (resources[key]['routeParamName']) {
+    //       let routeParamName = resources[key]['routeParamName']
+    //       url = url.replace('{}', this.$route.params[routeParamName])
+    //     }
+
+    //     this.fetchResource(key, url)
+    //   }
+    // },
     methods: {
       fetchResource (key, url) {
         this.$data.remoteDataLoading += 1
         this.$data.remoteErrors[key] = null
 
         this.$http.get(`${this.$data.baseUrl}${url}`)
-          .then(function (response) {
-            this.$data[key] = response.body
+          .then(function ({body}) {
+            this.$data[key] = body
             this.$data.remoteDataLoading -= 1
           })
           .catch(function (error) {
             this.$data.remoteDataLoading -= 1
+            this.$data[key] = null
             this.$data.remoteErrors[key] = error
           })
       },
-    },
-    created () {
-      for (const key in resources) {
-        let url = resources[key]
-        this.fetchResource(key, url)
-      }
+      pushResource (key, url) {
+        this.$data.remoteDataLoading += 1
+        this.$data.remoteErrors[key] = null
+
+        this.$http.post(`${this.$data.baseUrl}${url}`, this.$data[key])
+          .then(function (response) {
+            console.log(response)
+            this.$data.remoteDataLoading -= 1
+          })
+          .catch(function (error) {
+            console.log(error)
+            this.$data.remoteDataLoading -= 1
+            this.$data.remoteErrors[key] = error
+          })
+      },
     },
     computed: {
       dataLoading () {
