@@ -1,12 +1,14 @@
 <template>
-  <div>
-    <header>
-    </header>
+  <el-container>
+    <el-header>
+      <NavMenu />
+    </el-header>
 
-    <NavMenu />
+    <el-main >
+      <router-view />
+    </el-main>
 
-    <router-view />
-  </div>
+  </el-container>
 </template>
 
 
@@ -26,8 +28,5 @@ export default {
 
 
 <style>
-  * {
-    align: center;
-    text-align: center;
-  }
+
 </style>

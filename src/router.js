@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import Home from './components/Home'
 import ClientInsuranceRisks from './components/ClientInsuranceRisks'
+import InsuranceRiskCreate from './components/InsuranceRiskCreate'
 import InsuranceRiskDetail from './components/InsuranceRiskDetail'
 import Login from './components/Login'
 
@@ -11,6 +12,7 @@ Vue.use(VueRouter)
 const routes = [
     { path: '/', name: 'home', component: Home },
     { path: '/login', name: 'login', component: Login },
+    { path: '/risk/create', name: 'clientInsuranceRiskCreate', component: InsuranceRiskCreate },
     { path: '/risk/:id/add', name: 'clientInsuranceRiskAdd', component: InsuranceRiskDetail },
     { path: '/risk/:id/edit', name: 'clientInsuranceRiskEdit', component: InsuranceRiskDetail },
     { path: '/risk/client', name: 'clientInsuranceRisks', component: ClientInsuranceRisks },

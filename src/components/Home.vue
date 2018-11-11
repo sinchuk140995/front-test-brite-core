@@ -6,24 +6,22 @@
       Can't load the insurance risks
     </div>
 
-    <InsuranceRiskItem v-for="risk in risks" :name="risk.name" :key="risk.id" :id="risk.id" :urlName="urlName"></InsuranceRiskItem>
+    <div v-for="risk in risks">
+      <router-link :to="{ name: 'clientInsuranceRiskAdd', params: {id: risk.id} }" :key="risk.id">{{ risk.name }}</router-link>
+    </div>
+
   </div>
 </template>
 
 <script>
-import InsuranceRiskItem from './InsuranceRiskItem'
 import RemoteData from '../mixins/RemoteData'
 export default {
   data () {
     return {
-      urlName: 'clientInsuranceRiskAdd',
       // risks: [],
       // error: null,
       // loading: false,
     }
-  },
-  components: {
-    InsuranceRiskItem
   },
   mixins: [
     RemoteData({

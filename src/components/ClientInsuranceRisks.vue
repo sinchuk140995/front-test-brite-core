@@ -1,27 +1,24 @@
 <template>
-  <div>
-    <div v-loading="dataLoading"></div>
+  <div v-loading="dataLoading">
     <h1>Client insurance risks</h1>
 
     <div class="error" v-if="hasErrors">
       Can't load the questions
     </div>
 
-    <InsuranceRiskItem v-for="risk in risks" :name="risk.name" :key="risk.id" :id="risk.id" :urlName="urlName"></InsuranceRiskItem>
+     <div v-for="risk in risks">
+      <router-link :to="{ name: 'clientInsuranceRiskEdit', params: {id: risk.id} }" :key="risk.id">{{ risk.name }}</router-link>
+    </div>
   </div>
 </template>
 
 <script>
-import InsuranceRiskItem from './InsuranceRiskItem'
 import RemoteData from '../mixins/RemoteData'
 export default {
   data () {
     return {
       urlName: 'clientInsuranceRiskEdit',
     }
-  },
-  components: {
-    InsuranceRiskItem
   },
   mixins: [
     RemoteData({
