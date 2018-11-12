@@ -3,12 +3,12 @@
     <h2>{{risk.name}}</h2>
     <h3>Fields</h3>
     <el-form>
-      <el-form-item v-for="field in risk.fields" :key="field.id" :label="field.name" :required="true">
-        <el-input v-if="field.type === 'text'" :name="field.name" v-model="field.value" :required="true">
+      <el-form-item v-for="field in risk.client_fields" :key="field.id" :label="field.name">
+        <el-input v-if="field.field_type === 'text'" :name="field.name" v-model="field.value">
         </el-input>
-        <el-input-number v-else-if="field.type === 'number'" :name="field.name" v-model="field.value" :min="0">
+        <el-input-number v-else-if="field.field_type === 'number'" :name="field.name" v-model="field.value" :min="0">
         </el-input-number>
-        <el-select v-else-if="field.type === 'select'" :required="true" :placeholder="field.name" v-model="field.value">
+        <el-select v-else-if="field.field_type === 'select'" :placeholder="field.name" v-model="field.select_option">
           <el-option v-for="option in field.options" :key="option.id" :label="option.name" :value="option.id">{{ option.name }}</el-option>
         </el-select>
       </el-form-item>
@@ -27,7 +27,6 @@ import SwitchValues from '../mixins/SwitchValues'
 export default {
   data () {
     return {
-      resourceName: 'risk',
     }
   },
   mixins: [
@@ -35,26 +34,40 @@ export default {
     SwitchValues,
   ],
   created () {
-    this.fetchResource(this.resourceName, this.apiUrl)
+    this.fetchResource('risk', this.fetchApiUrl)
   },
   computed: {
     riskId () {
       return this.$route.params.id
     },
-    apiUrl () {
+    fetchApiUrl () {
       return this.switchValueBasedOnRoute(
-        { routeName: 'insuranceRiskTake', value: `api/client/risk/${this.riskId}/` },
-        { routeName: 'clientInsuranceRiskEdit', value: `api/client/risk/${this.riskId}/edit/` },
-      // switch (this.$route.name) {
-      //   case 'insuranceRiskTake': return `api/risk/${this.riskId}/`
-      //   case 'clientInsuranceRiskEdit': return `api/client/risk/${this.riskId}/edit/`
-      // }
+        {
+          routeName: 'insuranceRiskTake',
+          value: `api/risk/${this.riskId}/`,
+        },
+        {
+          routeName: 'clientInsuranceRiskEdit',
+          value: `api/risk/${this.riskId}/edit/`,
+        },
+      )
+    },
+    pushApiUrl () {
+      return this.switchValueBasedOnRoute(
+        {
+          routeName: 'insuranceRiskTake',
+          value: `api/client/risk/${this.riskId}/`,
+        },
+        {
+          routeName: 'clientInsuranceRiskEdit',
+          value: `api/risk/${this.riskId}/edit/`,
+        },
       )
     },
   },
   methods: {
     sendRisk () {
-      this.pushResource(this.resourceName, this.apiUrl)
+      this.pushResource('risk', this.pushApiUrl)
     }
   },
 }
