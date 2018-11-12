@@ -13,14 +13,14 @@
             <el-input type="text" placeholder="Name" v-model="field.name"></el-input>
           </el-col>
           <el-col :span="11">
-            <el-select @change="fieldChange(field)" v-model="field.type">
+            <el-select @change="fieldChange(field)" v-model="field.field_type">
               <el-option v-for="type in types" :key="type.id" :value="type.htmlName" :label="type.name"></el-option>
             </el-select>
           </el-col>
         </el-row>
-        <el-row v-if="field.type === 'select'">
+        <el-row v-if="field.field_type === 'select'">
           <el-col :span="12" v-for="(option, index) in field.options" :key="index">
-            <el-input type="text" placeholder="Options" v-model="field.options[index]"></el-input>
+            <el-input type="text" placeholder="Options" v-model="field.options[index]['name']"></el-input>
           </el-col>
 
           <el-button @click="addOption(field)">Add option</el-button>
@@ -56,19 +56,19 @@
           addField( ) {
             this.fields.push({
               name: '',
-              type: 'text',
+              field_type: 'text',
             })
           },
           fieldChange(field) {
-            if (field.type === 'select') {
-              this.$set(field, 'options', ['']);
+            if (field.field_type === 'select') {
+              this.$set(field, 'options', [{name: ''}]);
             }
           },
           addOption(field) {
             if (!field.options) {
-              this.$set(field, 'options', ['']);
+              this.$set(field, 'options', [{name: ''}]);
             } else {
-              field.options.push('');
+              field.options.push({name: ''});
             }
           },
           sendRisk() {
@@ -78,10 +78,10 @@
             }
             this.$http.post('http://localhost:8000/api/risk/create/', data)
               .then(({data}) => {
-
+                console.log(data)
               })
               .catch((error) => {
-
+                console.log(error)
               })
           },
         },
