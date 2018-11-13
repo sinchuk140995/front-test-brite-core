@@ -55,6 +55,21 @@ export default function (key) {
             this.$data.remoteErrors[key] = error
           })
       },
+      updateResource (key, url) {
+        this.$data.remoteDataLoading += 1
+        this.$data.remoteErrors[key] = null
+
+        this.$http.patch(`${this.$data.baseUrl}${url}`, this.$data[key])
+          .then(function (response) {
+            console.log(response)
+            this.$data.remoteDataLoading -= 1
+          })
+          .catch(function (error) {
+            console.log(error)
+            this.$data.remoteDataLoading -= 1
+            this.$data.remoteErrors[key] = error
+          })
+      },
     },
     computed: {
       dataLoading () {

@@ -48,7 +48,7 @@ export default {
         },
         {
           routeName: 'clientInsuranceRiskEdit',
-          value: `api/risk/${this.riskId}/edit/`,
+          value: `api/client/risk/${this.riskId}/`,
         },
       )
     },
@@ -56,18 +56,23 @@ export default {
       return this.switchValueBasedOnRoute(
         {
           routeName: 'insuranceRiskTake',
-          value: `api/client/risk/${this.riskId}/`,
+          value: 'api/client/risk/create/',
         },
         {
           routeName: 'clientInsuranceRiskEdit',
-          value: `api/risk/${this.riskId}/edit/`,
+          value: `api/client/risk/${this.riskId}/edit/`,
         },
       )
     },
   },
   methods: {
     sendRisk () {
-      this.pushResource('risk', this.pushApiUrl)
+      if (this.$route.name === 'insuranceRiskTake') {
+        this.pushResource('risk', this.pushApiUrl)
+      }
+      else if (this.$route.name === 'clientInsuranceRiskEdit') {
+        this.updateResource('risk', this.pushApiUrl)
+      }
     }
   },
 }
