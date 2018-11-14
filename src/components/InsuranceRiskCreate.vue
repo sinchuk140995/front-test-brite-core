@@ -61,14 +61,14 @@
           },
           fieldChange(field) {
             if (field.field_type === 'select') {
-              this.$set(field, 'options', [{name: ''}])
+              this.$set(field, 'options', [{ name: '' }])
             }
           },
           addOption(field) {
             if (!field.options) {
-              this.$set(field, 'options', [{name: ''}])
+              this.$set(field, 'options', [{ name: '' }])
             } else {
-              field.options.push({name: ''});
+              field.options.push({ name: '' })
             }
           },
           sendRisk() {

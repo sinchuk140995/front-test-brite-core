@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import FetchRemoteData from '../mixins/FetchRemoteData'
+import GetRemoteData from '../mixins/GetRemoteData'
 export default {
   data () {
     return {
@@ -41,7 +41,7 @@ export default {
     },
   },
   mixins: [
-    FetchRemoteData('insuranceRisks')
+    GetRemoteData('insuranceRisks')
   ],
   created () {
     console.log(this.riskListFetchApiUrl)

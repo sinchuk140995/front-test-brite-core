@@ -1,9 +1,9 @@
 <template>
   <div v-loading="dataLoading">
-    <h2>{{risk.name}}</h2>
+    <h2>{{ insuranceRisk.name }}</h2>
     <h3>Fields</h3>
     <el-form>
-      <el-form-item v-for="field in risk.client_fields" :key="field.id" :label="field.name">
+      <el-form-item v-for="field in insuranceRisk.client_fields" :key="field.id" :label="field.name">
         <el-input v-if="field.field_type === 'text'" :name="field.name" v-model="field.value">
         </el-input>
         <el-input-number v-else-if="field.field_type === 'number'" :name="field.name" v-model="field.value" :min="0">
@@ -22,56 +22,42 @@
 </template>
 
 <script>
-import RemoteData from '../mixins/RemoteData'
-import SwitchValues from '../mixins/SwitchValues'
+import GetRemoteData from '../mixins/GetRemoteData'
+import PostData from '../mixins/PostData'
 export default {
   data () {
     return {
+      insuranceRisk: {},
     }
   },
+  props: {
+    // refactor validation
+    mode: {
+      type: String,
+      required: true,
+    },
+    riskFetchApiUrl: {
+      type: String,
+      required: true,
+    },
+    riskPushApiUrl: {
+      type: String,
+      required: true,
+    },
+  },
   mixins: [
-    RemoteData('risk'),
-    SwitchValues,
+    GetRemoteData('insuranceRisk'),
+    PostData('insuranceRisk'),
   ],
   created () {
-    this.fetchResource('risk', this.fetchApiUrl)
-  },
-  computed: {
-    riskId () {
-      return this.$route.params.id
-    },
-    fetchApiUrl () {
-      return this.switchValueBasedOnRoute(
-        {
-          routeName: 'insuranceRiskTake',
-          value: `api/risk/${this.riskId}/`,
-        },
-        {
-          routeName: 'clientInsuranceRiskEdit',
-          value: `api/client/risk/${this.riskId}/`,
-        },
-      )
-    },
-    pushApiUrl () {
-      return this.switchValueBasedOnRoute(
-        {
-          routeName: 'insuranceRiskTake',
-          value: 'api/client/risk/create/',
-        },
-        {
-          routeName: 'clientInsuranceRiskEdit',
-          value: `api/client/risk/${this.riskId}/edit/`,
-        },
-      )
-    },
+    this.fetchResource(this.riskFetchApiUrl)
   },
   methods: {
     sendRisk () {
-      if (this.$route.name === 'insuranceRiskTake') {
-        this.pushResource('risk', this.pushApiUrl)
-      }
-      else if (this.$route.name === 'clientInsuranceRiskEdit') {
-        this.updateResource('risk', this.pushApiUrl)
+      if (this.mode === 'create') {
+        this.postResource(this.riskPushApiUrl)
+      } else if (this.mode === 'edit') {
+        this.patchResource(this.riskPushApiUrl)
       }
     }
   },
