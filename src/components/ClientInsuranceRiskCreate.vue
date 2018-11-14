@@ -1,8 +1,8 @@
 <template>
   <insurance-risk
     mode="create"
-    :riskFetchApiUrl='riskFetchApiUrl'
-    riskPushApiUrl='api/client/risk/create/'>
+    :riskFetchApiUrl="riskFetchApiUrl"
+    riskPushApiUrl="api/client/risk/create/">
   </insurance-risk>
 </template>
 

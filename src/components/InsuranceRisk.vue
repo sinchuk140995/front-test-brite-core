@@ -31,10 +31,10 @@ export default {
     }
   },
   props: {
-    // refactor validation
     mode: {
-      type: String,
-      required: true,
+      validator: function (value) {
+        return ['create', 'edit'].indexOf(value) !== -1
+      }
     },
     riskFetchApiUrl: {
       type: String,

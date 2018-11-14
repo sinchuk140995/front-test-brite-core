@@ -1,8 +1,8 @@
 <template>
   <insurance-risk
     mode="edit"
-    :riskFetchApiUrl='riskFetchApiUrl'
-    :riskPushApiUrl='riskEditApiUrl'>
+    :riskFetchApiUrl="riskFetchApiUrl"
+    :riskPushApiUrl="riskEditApiUrl">
   </insurance-risk>
 </template>
 
