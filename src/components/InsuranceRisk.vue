@@ -3,7 +3,7 @@
     <h2>{{ insuranceRisk.name }}</h2>
     <h3>Fields</h3>
     <el-form>
-      <el-form-item v-for="field in insuranceRisk.client_fields" :key="field.id" :label="field.name">
+      <el-form-item v-for="field in insuranceRisk.fields" :key="field.id" :label="field.name">
         <el-input v-if="field.field_type === 'text'" :name="field.name" v-model="field.value">
         </el-input>
         <el-input-number v-else-if="field.field_type === 'number'" :name="field.name" v-model="field.value" :min="0">
