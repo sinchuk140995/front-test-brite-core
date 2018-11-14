@@ -1,5 +1,5 @@
 <template>
-  <div v-loading="dataLoading">
+  <div v-loading="loading">
     <el-card class="box-card">
       <div slot="header" class="clearfix">
         <span>{{ title }}</span>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import GetRemoteData from '../mixins/GetRemoteData'
+import GetData from '../mixins/GetData'
 export default {
   data () {
     return {
@@ -41,13 +41,19 @@ export default {
     },
   },
   mixins: [
-    GetRemoteData('insuranceRisks')
+    GetData('insuranceRisks')
   ],
   created () {
-    console.log(this.riskListFetchApiUrl)
     this.fetchResource(this.riskListFetchApiUrl)
   },
-
+  computed: {
+    loading () {
+      return this.loadingData
+    },
+    hasErrors () {
+      return this.hasLoadingErrors
+    },
+  },
 }
 </script>
 

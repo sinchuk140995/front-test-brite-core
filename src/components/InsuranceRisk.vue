@@ -1,5 +1,5 @@
 <template>
-  <div v-loading="dataLoading">
+  <div v-loading="loading">
     <h2>{{ insuranceRisk.name }}</h2>
     <h3>Fields</h3>
     <el-form>
@@ -22,8 +22,8 @@
 </template>
 
 <script>
-import GetRemoteData from '../mixins/GetRemoteData'
-import PostData from '../mixins/PostData'
+import GetData from '../mixins/GetData'
+import PostPatchData from '../mixins/PostPatchData'
 export default {
   data () {
     return {
@@ -46,8 +46,8 @@ export default {
     },
   },
   mixins: [
-    GetRemoteData('insuranceRisk'),
-    PostData('insuranceRisk'),
+    GetData('insuranceRisk'),
+    PostPatchData('insuranceRisk'),
   ],
   created () {
     this.fetchResource(this.riskFetchApiUrl)
@@ -60,6 +60,14 @@ export default {
         this.patchResource(this.riskPushApiUrl)
       }
     }
+  },
+  computed: {
+    loading () {
+      return this.loadingData || this.uploadingData
+    },
+    hasErrors () {
+      return this.hasLoadingErrors || this.hasUploadingErrors
+    },
   },
 }
 </script>
