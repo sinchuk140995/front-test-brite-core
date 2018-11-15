@@ -3,8 +3,6 @@
     <h2>{{ insuranceRisk.name }}</h2>
     <h3>Fields</h3>
     <el-form
-      :model="insuranceRisk"
-      ref="insuranceRisk"
       label-width="120px"
     >
 
@@ -12,10 +10,7 @@
         v-for="(field, index) in insuranceRisk.fields"
         :label="field.name"
         :key="field.id"
-        prop="field"
-        :rules="[
-          { required: true, message: 'field is required', trigger: 'blur' }
-        ]"
+        :error="errors[field.name]"
       >
         <el-input
           v-if="field.field_type === 'text'"
@@ -54,7 +49,7 @@
         <el-button
           icon="el-icon-circle-plus-outline"
           type="submit"
-          @click="submitForm('insuranceRisk')"
+          @click="submitForm()"
         >
           Save
         </el-button>
@@ -67,10 +62,12 @@
 <script>
 import GetData from '../mixins/GetData'
 import PostPatchData from '../mixins/PostPatchData'
+import FieldValidation from '../mixins/FieldValidation'
 export default {
   data () {
     return {
       insuranceRisk: {},
+      errors: {},
     }
   },
   props: {
@@ -91,25 +88,48 @@ export default {
   mixins: [
     GetData('insuranceRisk'),
     PostPatchData('insuranceRisk'),
+    FieldValidation,
   ],
   created () {
     this.fetchResource(this.riskFetchApiUrl)
   },
   methods: {
-    submitForm (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert('submit!');
-        } else {
-          console.log('error submit!!');
-          return false;
+    submitForm () {
+      let formIsValid = this.checkForm()
+      if (!formIsValid) {
+        return
+      }
+      if (this.mode === 'create') {
+        this.postResource(this.riskPushApiUrl)
+      } else if (this.mode === 'edit') {
+        this.patchResource(this.riskPushApiUrl)
+      }
+    },
+    checkForm () {
+      this.errors = {}
+
+      for (let field of this.insuranceRisk.fields) {
+        if (field.field_type === 'select') {
+          if (this.fieldIsRequired(field, 'select_option', 'name', 'errors')) {
+            continue
+          }
         }
-      });
-      // if (this.mode === 'create') {
-      //   this.postResource(this.riskPushApiUrl)
-      // } else if (this.mode === 'edit') {
-      //   this.patchResource(this.riskPushApiUrl)
-      // }
+        else if (field.field_type === 'number') {
+          if (this.fieldIsRequired(field, 'value', 'name', 'errors')) {
+            continue
+          }
+        }
+        else if (field.field_type === 'text') {
+          if (this.fieldIsRequired(field, 'value', 'name', 'errors')) {
+            continue
+          }
+
+          if (field['value'].length < 2) {
+            this.errors[field.name] = 'This field should contain minimum 2 symbols.'
+          }
+        }
+      }
+      return Object.values(this.errors).length === 0
     },
   },
   computed: {
@@ -120,6 +140,13 @@ export default {
       return this.hasLoadingErrors || this.hasUploadingErrors
     },
   },
+  watch: {
+    insuranceRisk () {
+      for (let field of this.insuranceRisk.fields) {
+        this.errors[field.name] = ''
+      }
+    },
+  }
 }
 </script>
 
