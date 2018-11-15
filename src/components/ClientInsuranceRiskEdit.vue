@@ -1,16 +1,16 @@
 <template>
-  <insurance-risk
+  <insurance-risk-form
     mode="edit"
     :riskFetchApiUrl="riskFetchApiUrl"
     :riskPushApiUrl="riskEditApiUrl">
-  </insurance-risk>
+  </insurance-risk-form>
 </template>
 
 <script>
-import InsuranceRisk from './InsuranceRisk'
+import InsuranceRiskForm from './InsuranceRiskForm'
 export default {
   components: {
-    InsuranceRisk,
+    InsuranceRiskForm,
   },
   computed: {
     clientInsuranceRiskId () {

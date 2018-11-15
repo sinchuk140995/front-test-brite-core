@@ -1,10 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import InsuranceRiskList from './components/InsuranceRiskList'
-import InsuranceRisk from './components/InsuranceRisk'
-import InsuranceRiskCreate from './components/InsuranceRiskCreate'
-
 import Home from './components/Home'
+import InsuranceRiskCreate from './components/InsuranceRiskCreate'
 import ClientInsuranceRiskList from './components/ClientInsuranceRiskList'
 import ClientInsuranceRiskCreate from './components/ClientInsuranceRiskCreate'
 import ClientInsuranceRiskEdit from './components/ClientInsuranceRiskEdit'
