@@ -134,7 +134,7 @@ export default {
   },
   computed: {
     loading () {
-      return this.loadingData || this.uploadingData
+      return this.loadingData || this.dataUploading
     },
     hasErrors () {
       return this.hasLoadingErrors || this.hasUploadingErrors

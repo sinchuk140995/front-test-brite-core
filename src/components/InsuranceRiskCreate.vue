@@ -14,7 +14,7 @@
           </el-col>
           <el-col :span="11">
             <el-select @change="fieldChange(field)" v-model="field.field_type">
-              <el-option v-for="type in types" :key="type.id" :value="type.htmlName" :label="type.name"></el-option>
+              <el-option v-for="(type, index) in types" :key="index" :value="type.htmlName" :label="type.name"></el-option>
             </el-select>
           </el-col>
         </el-row>
@@ -44,9 +44,9 @@
         data() {
             return {
               types: [
-                { id: 1, name: 'String', htmlName: 'text' },
-                { id: 2, name: 'Number', htmlName: 'number' },
-                { id: 3, name: 'Enum', htmlName: 'select' }
+                { name: 'String', htmlName: 'text' },
+                { name: 'Number', htmlName: 'number' },
+                { name: 'Enum', htmlName: 'select' }
               ],
               name: '',
               fields: [],

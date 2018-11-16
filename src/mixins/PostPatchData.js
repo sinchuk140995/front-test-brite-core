@@ -2,7 +2,7 @@ export default function (key) {
   return {
     data () {
       let initData = {
-        dataUploading: 0,
+        dataUploading: false,
         uploadingErrors: {},
         baseUrl: 'http://localhost:8000/'
       }
@@ -13,56 +13,60 @@ export default function (key) {
     },
     methods: {
       postResource (url) {
-        if (this.uploadingData) {
+        if (this.dataUploading) {
           this.$message({
+            showClose: true,
             message: 'Information is sending',
-            type: 'warning'
+            type: 'warning',
           });
           return
         }
 
-        this.$data.dataUploading += 1
-        this.$data.uploadingErrors = {}
+        this.dataUploading = true
+        this.uploadingErrors = {}
 
         this.$http.post(`${this.$data.baseUrl}${url}`, this.$data[key])
           .then(function (response) {
-            this.$data.dataUploading -= 1
+            this.dataUploading = false
             this.$message({
-              message: 'Success.',
-              type: 'success'
+              showClose: true,
+              message: 'Success',
+              type: 'success',
             });
           })
           .catch(function ({bodyText}) {
             console.log(bodyText)
             this.parseErrors(bodyText)
             this.displayUploadingErrors()
-            this.$data.dataUploading -= 1
+            this.dataUploading = false
           })
       },
       patchResource (url) {
-        if (this.uploadingData) {
+        if (this.dataUploading) {
           this.$message({
+            showClose: true,
             message: 'Information is sending',
-            type: 'warning'
+            type: 'warning',
           });
           return
         }
 
-        this.$data.dataUploading += 1
-        this.$data.uploadingErrors = {}
+        this.dataUploading = true
+        this.uploadingErrors = {}
 
         this.$http.patch(`${this.$data.baseUrl}${url}`, this.$data[key])
           .then(function (response) {
-            this.$data.dataUploading -= 1
+            this.dataUploading = false
             this.$message({
-              message: 'Success.',
-              type: 'success'
+              showClose: true,
+              message: 'Success',
+              type: 'success',
             });
           })
           .catch(function ({bodyText}) {
             this.parseErrors(bodyText)
             this.displayUploadingErrors()
-            this.$data.dataUploading -= 1
+            this.dataUploading = false
           })
       },
       parseErrors (bodyText) {
@@ -71,23 +75,24 @@ export default function (key) {
         for (let key in bodyObj) {
           for (let error of bodyObj[key]) {
             // console.log(key, bodyObj[key], error)
-            this.$data.uploadingErrors[key] = error
+            this.uploadingErrors[key] = error
           }
         }
       },
       displayUploadingErrors () {
-        for (let errorKey in this.$data.uploadingErrors) {
-          this.$message.error(this.$data.uploadingErrors[errorKey])
+        for (let errorKey in this.uploadingErrors) {
+          this.$message({
+            showClose: true,
+            message: this.uploadingErrors[errorKey],
+            type: 'error'
+          });
         }
       }
     },
     computed: {
-      uploadingData () {
-        return this.$data.dataUploading !== 0
-      },
       hasUploadingErrors () {
-        return Object.keys(this.$data.uploadingErrors).some(
-          key => this.$data.uploadingErrors[key]
+        return Object.keys(this.uploadingErrors).some(
+          key => this.uploadingErrors[key]
         )
       },
     },
