@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     loading () {
-      return this.loadingData
+      return this.dataLoading
     },
     hasErrors () {
       return this.hasLoadingErrors
