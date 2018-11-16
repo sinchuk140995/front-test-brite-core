@@ -10,7 +10,7 @@
         v-for="(field, index) in insuranceRisk.fields"
         :label="field.name"
         :key="field.id"
-        :error="errors[field.name]"
+        :error="errors[field.name] || uploadingErrors[field.name]"
       >
         <el-input
           v-if="field.field_type === 'text'"
