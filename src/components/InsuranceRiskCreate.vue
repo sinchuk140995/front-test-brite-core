@@ -1,89 +1,192 @@
 <template>
-  <el-form label-width="120px">
-      <el-form-item label="Name">
-          <el-input type="text" name="name" v-model="name">
+  <el-form
+    label-width="120px"
+  >
+    <el-form-item
+      label="Name"
+      :error="errors['riskName']"
+    >
+      <el-input
+        type="text"
+        name="name"
+        v-model="insuranceRisk.name"
+      >
+      </el-input>
+    </el-form-item>
+
+    <el-row>
+      <h4>Fields</h4>
+    </el-row>
+    <el-form-item
+      v-for="(field, index) in insuranceRisk.fields"
+      label="Name"
+      :key="index"
+      :error="errors[index]"
+    >
+      <el-row
+        type="flex"
+        class="row-bg"
+        justify="space-around"
+      >
+        <el-col :span="11">
+          <el-input
+            type="text"
+            placeholder="Name"
+            v-model="field.name"
+          >
           </el-input>
-      </el-form-item>
-      <el-row>
-        <h4>Fields</h4>
-      </el-row>
-      <el-form-item v-for="field in fields" :key="field.id">
-        <el-row type="flex" class="row-bg" justify="space-around">
-          <el-col :span="11">
-            <el-input type="text" placeholder="Name" v-model="field.name"></el-input>
-          </el-col>
-          <el-col :span="11">
-            <el-select @change="fieldChange(field)" v-model="field.field_type">
-              <el-option v-for="(type, index) in types" :key="index" :value="type.htmlName" :label="type.name"></el-option>
+        </el-col>
+        <el-col :span="11">
+          <el-form-item
+            label="Type"
+          >
+            <el-select
+              @change="fieldChange(field)"
+              v-model="field.field_type"
+            >
+              <el-option
+                v-for="(type, index) in types"
+                :key="index"
+                :value="type.htmlName"
+                :label="type.name"
+              >
+              </el-option>
             </el-select>
-          </el-col>
-        </el-row>
-        <el-row v-if="field.field_type === 'select'">
-          <el-col :span="12" v-for="(option, index) in field.options" :key="index">
-            <el-input type="text" placeholder="Options" v-model="field.options[index]['name']"></el-input>
-          </el-col>
+          </el-form-item>
+        </el-col>
+      </el-row>
 
-          <el-button @click="addOption(field)">Add option</el-button>
-        </el-row>
+      <el-row
+        v-if="field.field_type === 'select'"
+      >
+        <el-form-item
+          v-for="(option, optionIndex) in field.options"
+          :key="optionIndex"
+          :error="errors[index + '-option-' + optionIndex]"
+        >
+          <el-col
+            :span="12"
+          >
 
-      </el-form-item>
-      <el-form-item>
-        <el-button icon="el-icon-circle-plus-outline" type="primary" @click="addField">
-            Add field
-        </el-button>
-        <el-button icon="el-icon-circle-plus-outline" type="success" @click="sendRisk">
-            Save
-        </el-button>
-      </el-form-item>
-    </el-form>
+            <el-input
+              type="text"
+              placeholder="Options"
+              v-model="field.options[optionIndex]['name']"
+            >
+            </el-input>
+
+          </el-col>
+        </el-form-item>
+
+        <el-button @click="addOption(field)">Add option</el-button>
+
+      </el-row>
+    </el-form-item>
+
+    <el-form-item>
+      <el-button
+        icon="el-icon-circle-plus-outline"
+        type="primary"
+        @click="addField"
+      >
+        Add field
+      </el-button>
+      <el-button
+        icon="el-icon-circle-plus-outline"
+        type="success"
+        @click="submitForm"
+      >
+        Save
+      </el-button>
+    </el-form-item>
+  </el-form>
 </template>
 
 <script>
-    export default {
-        name: 'InsuranceRiskCreate',
-        data() {
-            return {
-              types: [
-                { name: 'String', htmlName: 'text' },
-                { name: 'Number', htmlName: 'number' },
-                { name: 'Enum', htmlName: 'select' }
-              ],
-              name: '',
-              fields: [],
-            }
-        },
-        methods: {
-          addField( ) {
-            this.fields.push({
-              name: '',
-              field_type: 'text',
-            })
-          },
-          fieldChange(field) {
-            if (field.field_type === 'select') {
-              this.$set(field, 'options', [{ name: '' }])
-            }
-          },
-          addOption(field) {
-            if (!field.options) {
-              this.$set(field, 'options', [{ name: '' }])
-            } else {
-              field.options.push({ name: '' })
-            }
-          },
-          sendRisk() {
-            let data = {
-              name: this.name,
-              fields: this.fields,
-            }
-            this.$http.post('http://localhost:8000/api/risk/create/', data)
-              .then(({data}) => {
-                console.log(data)
-              })
-              .catch((error) => {
-                console.log(error)
-              })
-          },
-        },
+import PostPatchData from '../mixins/PostPatchData'
+import FieldValidation from '../mixins/FieldValidation'
+export default {
+  name: 'InsuranceRiskCreate',
+  data() {
+    return {
+      types: [
+        { name: 'String', htmlName: 'text' },
+        { name: 'Number', htmlName: 'number' },
+        { name: 'Enum', htmlName: 'select' }
+      ],
+      insuranceRisk: {
+        name: '',
+        fields: [],
+      },
+      errors: {},
+      riskPushApiUrl: 'api/risk/create/',
     }
+  },
+  mixins: [
+    PostPatchData('insuranceRisk'),
+    FieldValidation('errors'),
+  ],
+  methods: {
+    addField () {
+      this.insuranceRisk.fields.push({
+        name: '',
+        field_type: 'text',
+      })
+    },
+    addOption (field) {
+      if (!field.options) {
+        this.$set(field, 'options', [{ name: '' }])
+      } else {
+        field.options.push({ name: '' })
+      }
+    },
+    fieldChange (field) {
+      if (field.field_type === 'select') {
+        this.$set(field, 'options', [{ name: '' }])
+      }
+    },
+    submitForm () {
+      let formIsValid = this.checkForm()
+      // console.log('formIsValid', formIsValid)
+      if (!formIsValid) {
+        return
+      }
+      this.postResource(this.riskPushApiUrl)
+    },
+    checkForm () {
+      this.errors = {}
+      let textMinLength = 3
+
+      let nameOfRiskNameField = 'riskName'
+      this.checkRequiredValue(this.insuranceRisk.name, nameOfRiskNameField)
+      if (this.errors) {
+        this.checkValueLength(this.insuranceRisk.name, nameOfRiskNameField, textMinLength)
+      }
+
+      if (this.insuranceRisk.fields.length < 3) {
+        this.$message({
+          showClose: true,
+          message: 'An insurance risk must contain at least 3 fields',
+          type: 'error'
+        });
+      }
+
+      for (let i = 0; i < this.insuranceRisk.fields.length; i++) {
+        let field = this.insuranceRisk.fields[i]
+        this.checkRequiredDynamicField(field, i)
+      }
+      // for (let [field, index] of this.insuranceRisk.fields) {
+        // this.checkFieldLength(field, textMinLength)
+        // if (field.field_type !== 'select') {
+        //   continue
+        // }
+        // for (let option of field.options) {
+        //   this.checkRequiredField(option)
+        //   this.checkFieldLength(option, textMinLength)
+        // }
+      // }
+      return Object.values(this.errors).length === 0
+    },
+  },
+}
 </script>

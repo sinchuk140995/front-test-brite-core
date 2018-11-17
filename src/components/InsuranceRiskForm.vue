@@ -88,7 +88,7 @@ export default {
   mixins: [
     GetData('insuranceRisk'),
     PostPatchData('insuranceRisk'),
-    FieldValidation,
+    FieldValidation('errors'),
   ],
   created () {
     this.fetchResource(this.riskFetchApiUrl)
@@ -109,25 +109,8 @@ export default {
       this.errors = {}
 
       for (let field of this.insuranceRisk.fields) {
-        if (field.field_type === 'select') {
-          if (this.fieldIsRequired(field, 'select_option', 'name', 'errors')) {
-            continue
-          }
-        }
-        else if (field.field_type === 'number') {
-          if (this.fieldIsRequired(field, 'value', 'name', 'errors')) {
-            continue
-          }
-        }
-        else if (field.field_type === 'text') {
-          if (this.fieldIsRequired(field, 'value', 'name', 'errors')) {
-            continue
-          }
-
-          if (field['value'].length < 2) {
-            this.errors[field.name] = 'This field should contain minimum 2 symbols.'
-          }
-        }
+        this.checkRequiredField(field)
+        this.checkFieldLength(field, 2)
       }
       return Object.values(this.errors).length === 0
     },
@@ -140,13 +123,13 @@ export default {
       return this.hasLoadingErrors || this.hasUploadingErrors
     },
   },
-  watch: {
-    insuranceRisk () {
-      for (let field of this.insuranceRisk.fields) {
-        this.errors[field.name] = ''
-      }
-    },
-  }
+  // watch: {
+  //   insuranceRisk () {
+  //     for (let field of this.insuranceRisk.fields) {
+  //       this.errors[field.name] = ''
+  //     }
+  //   },
+  // },
 }
 </script>
 

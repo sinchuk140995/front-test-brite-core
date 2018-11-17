@@ -6,7 +6,6 @@ export default function (key) {
         uploadingErrors: {},
         baseUrl: 'http://localhost:8000/'
       }
-
       // initData.uploadingErrors[key] = null
 
       return initData
