@@ -1,10 +1,10 @@
 <template>
-    <el-menu :default-active="activeItem" @select="handleSelect" mode="horizontal" >
-      <el-menu-item index="0">
-        <router-link :to="{ name: 'home' }" exact>Home</router-link>
+    <el-menu :default-active="activeItem" :router="true" @select="handleSelect" mode="horizontal" >
+      <el-menu-item index="0" :route="{ name: 'home' }">
+        Home
       </el-menu-item>
-      <el-menu-item index="1">
-        <router-link :to="{ name: 'clientInsuranceRisks' }" exact>Client insurance risks</router-link>
+      <el-menu-item index="1" :route="{ name: 'clientInsuranceRisks' }">
+        Client insurance risks
       </el-menu-item>
     </el-menu>
 </template>
@@ -19,7 +19,7 @@
     },
     methods: {
       handleSelect(key, keyPath) {
-        // console.log(key, keyPath)
+        // console.log('key, keyPath', key, keyPath)
         this.activeItem = key;
       }
     }
@@ -30,4 +30,6 @@
   .router-link-active {
     color: #1FC7E9;
   }
+
+
 </style>

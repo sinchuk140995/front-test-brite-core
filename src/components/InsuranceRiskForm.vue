@@ -1,5 +1,5 @@
 <template>
-  <div v-loading="loading">
+  <div v-loading="loading" class="form-wrapper">
     <h2>{{ insuranceRisk.name }}</h2>
     <h3>Fields</h3>
     <el-form
@@ -134,4 +134,7 @@ export default {
 </script>
 
 <style>
+  .form-wrapper {
+    /*width: 100%;*/
+  }
 </style>

@@ -28,7 +28,7 @@
         class="row-bg"
         justify="space-around"
       >
-        <el-col :span="11">
+        <el-col>
           <el-input
             type="text"
             placeholder="Name"
@@ -36,7 +36,7 @@
           >
           </el-input>
         </el-col>
-        <el-col :span="11">
+        <el-col class="type-column">
           <el-form-item
             label="Type"
           >
@@ -60,25 +60,20 @@
         v-if="field.field_type === 'select'"
       >
         <el-form-item
+          class="option"
           v-for="(option, optionIndex) in field.options"
           :key="optionIndex"
           :error="errors[index + '-option-' + optionIndex]"
         >
-          <el-col
-            :span="12"
+          <el-input
+            type="text"
+            placeholder="Options"
+            v-model="field.options[optionIndex]['name']"
           >
-
-            <el-input
-              type="text"
-              placeholder="Options"
-              v-model="field.options[optionIndex]['name']"
-            >
-            </el-input>
-
-          </el-col>
+          </el-input>
+          <el-button v-if="optionIndex === field.options.length - 1" icon="el-icon-plus" circle type="info" @click="addOption(field)"></el-button>
         </el-form-item>
 
-        <el-button @click="addOption(field)">Add option</el-button>
 
       </el-row>
     </el-form-item>
@@ -163,10 +158,11 @@ export default {
         this.checkValueLength(this.insuranceRisk.name, nameOfRiskNameField, textMinLength)
       }
 
-      if (this.insuranceRisk.fields.length < 3) {
+      if (this.insuranceRisk.fields.length < 1) {
+        this.errors['fieldsLength'] = 'An insurance risk must contain at least 1 field'
         this.$message({
           showClose: true,
-          message: 'An insurance risk must contain at least 3 fields',
+          message: this.errors['fieldsLength'],
           type: 'error'
         });
       }
@@ -190,3 +186,31 @@ export default {
   },
 }
 </script>
+
+<style>
+  .option {
+    margin-top: 15px;
+    width: 100%;
+  }
+
+  .el-row {
+    width: 100%;
+  }
+
+  .option .el-form-item__content {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
+  .option .el-input {
+    flex-grow: 1;
+  }
+
+  .option .el-input + .el-button {
+    margin-left: 15px;
+  }
+
+  .type-column {
+    margin-left: 15px;
+  }
+</style>

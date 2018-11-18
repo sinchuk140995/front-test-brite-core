@@ -1,9 +1,11 @@
 <template>
   <div v-loading="loading">
-    <el-card class="box-card">
-      <div slot="header" class="clearfix">
-        <span>{{ title }}</span>
-        <router-link style="float: right; padding: 3px 0" :to="{ name: 'insuranceRiskCreate' }" exact>Create new</router-link>
+    <el-card class="box-card" :body-style="{ padding: '0px' }">
+      <div slot="header" class="header clearfix">
+        <span class="header-title">{{ title }}</span>
+        <el-button style="float: right;" @click="goTo('insuranceRiskCreate')">
+          Create new
+        </el-button>
       </div>
 
       <div class="error" v-if="hasErrors">
@@ -11,7 +13,7 @@
       </div>
 
       <div v-for="risk in insuranceRisks" :key="risk.id" class="text item">
-        <router-link :to="{ name: riskDetailRouteName, params: {id: risk.id} }" :key="risk.id">{{ risk.name }}
+        <router-link class="link" :to="{ name: riskDetailRouteName, params: {id: risk.id} }" :key="risk.id">{{ risk.name }}
         </router-link>
       </div>
     </el-card>
@@ -36,13 +38,19 @@ export default {
       required: true,
     },
     riskListFetchApiUrl: {
-      type: String,
+      // type: String
       required: true,
     },
   },
   mixins: [
     GetData('insuranceRisks')
   ],
+  methods: {
+    goTo(pathName) {
+      this.$router.push({ name: 'insuranceRiskCreate' });
+      // :route="{ name: 'insuranceRiskCreate' }"
+    }
+  },
   created () {
     this.fetchResource(this.riskListFetchApiUrl)
   },
@@ -57,13 +65,27 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header .el-button {
+    margin-left: auto;
+  }
+
+  .header-title {
+    margin-right: 30px;
+  }
+
   .text {
     font-size: 14px;
   }
 
   .item {
-    margin-bottom: 18px;
+    margin-bottom: 0;
   }
 
   .clearfix:before,
@@ -77,5 +99,23 @@ export default {
 
   .box-card {
     width: 480px;
+    max-width: calc(100vw - 20px);
+  }
+
+  .el-card__body {
+    padding: 0;
+  }
+
+  .link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 300ms;
+  }
+
+  .link:hover {
+    background-color: #ddd;
   }
 </style>
