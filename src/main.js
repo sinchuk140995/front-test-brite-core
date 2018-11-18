@@ -1,8 +1,8 @@
 import 'babel-polyfill'
 import Vue from 'vue'
 import VueResource from 'vue-resource'
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
 import router from './router'
 import App from './App.vue'
 import './global-components'
