@@ -12,9 +12,9 @@ Vue.use(VueResource)
 Vue.use(ElementUI)
 
 
-const testTitle = "Some title"
-const testRouteName = "insuranceRiskTake"
-const testApiUrl = "api/risk/"
+const testTitle = 'Some title'
+const testRouteName = 'insuranceRiskTake'
+const testApiUrl = 'api/risk/'
 const factory = (propsData) => {
   return shallowMount(InsuranceRiskList, {
     propsData: {
@@ -30,7 +30,7 @@ const factory = (propsData) => {
 describe('InsuranceRiskList.vue', () => {
   it('renders props.title when passed', () => {
     const wrapper = factory()
-    expect(wrapper.find("span").text()).to.equal(testTitle)
+    expect(wrapper.find('span').text()).to.equal(testTitle)
   }),
 
   it('makes API call by props.riskListFetchApiUrl getting insurance risks', (done) => {
@@ -39,7 +39,7 @@ describe('InsuranceRiskList.vue', () => {
     //   console.log(wrapper.vm.insuranceRisks)
     //   done()
     // })
-    setTimeout(function() {
+    setTimeout(() => {
       expect(wrapper.vm.insuranceRisks.lenght).to.not.equal(0)
       done()
     }, 100);
@@ -47,7 +47,7 @@ describe('InsuranceRiskList.vue', () => {
 
   it('renders insurance risk links', (done) => {
     const wrapper = factory()
-    setTimeout(function() {
+    setTimeout(() => {
       expect(wrapper.contains('.link')).to.equal(true)
       done()
     }, 100);

@@ -14,6 +14,7 @@
       >
         <el-input
           v-if="field.field_type === 'text'"
+          :id="`input-text-${field.id}`"
           :name="field.name"
           v-model="field.value"
         >
@@ -21,6 +22,7 @@
 
         <el-input-number
           v-else-if="field.field_type === 'number'"
+          :id="`input-number-${field.id}`"
           :name="field.name"
           v-model="field.value"
           :min="0"
@@ -29,12 +31,14 @@
 
         <el-select
           v-else-if="field.field_type === 'select'"
+          :id="`input-select-${field.id}`"
           :placeholder="field.name"
           v-model="field.select_option"
         >
 
           <el-option
             v-for="option in field.options"
+            :id="`input-select-${field.id}-option-${option.id}`"
             :key="option.id"
             :label="option.name"
             :value="option.id"
@@ -47,6 +51,7 @@
 
       <el-form-item>
         <el-button
+          id="submitFormBtn"
           icon="el-icon-circle-plus-outline"
           type="submit"
           @click="submitForm()"
