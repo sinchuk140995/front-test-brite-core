@@ -13,7 +13,7 @@ Vue.use(VueResource)
 Vue.use(ElementUI)
 
 
-const riskId = 16
+const riskId = 20
 const testmode = "create"
 const testFetchApiUrl = `api/risk/${riskId}/`
 const testPushApiUrl = "api/client/risk/create/"
@@ -45,15 +45,14 @@ describe('InsuranceRiskForm.vue', () => {
         else if (riskField.field_type === 'number') {
           let inputDiv = wrapper.find(`#input-number-${riskField.id}`)
           let inputWrapper = inputDiv.find('.el-input > input')
-          console.log(inputWrapper.attributes())
-          inputWrapper.setValue(1)
+          // inputWrapper.setValue(1)
 
           // riskField.value = 1
         }
         else if (riskField.field_type === 'select') {
           let firstOption = riskField.options[0]
           let inputWrapper = wrapper.find(`#input-select-${riskField.id}-option-${firstOption.id}`)
-          inputWrapper.setSelected()
+          // inputWrapper.setSelected()
 
           // riskField.select_option = firstOption.id
         }

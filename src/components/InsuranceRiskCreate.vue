@@ -7,6 +7,7 @@
       :error="errors['riskName']"
     >
       <el-input
+        id="risk-name-input"
         type="text"
         name="name"
         v-model="insuranceRisk.name"
@@ -30,6 +31,7 @@
       >
         <el-col>
           <el-input
+            :id="`risk-field-name-${index}`"
             type="text"
             placeholder="Name"
             v-model="field.name"
@@ -80,6 +82,7 @@
 
     <el-form-item>
       <el-button
+        id="add-field-btn"
         icon="el-icon-circle-plus-outline"
         type="primary"
         @click="addField"
@@ -87,6 +90,7 @@
         Add field
       </el-button>
       <el-button
+        id="submit-form"
         icon="el-icon-circle-plus-outline"
         type="success"
         @click="submitForm"
