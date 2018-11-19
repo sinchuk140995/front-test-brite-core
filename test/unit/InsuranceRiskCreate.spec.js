@@ -19,7 +19,7 @@ describe('InsuranceRiskCreate.vue', () => {
     const riskName = 'Risk name'
     setTimeout(() => {
       wrapper.find('#risk-name-input').setValue(riskName)
-      wrapper.find('#submit-form').trigger('click')
+      wrapper.find('#submit-form-btn').trigger('click')
 
       setTimeout(() => {
         expect(wrapper.vm.errors).to.have.property('fieldsLength')
@@ -32,7 +32,7 @@ describe('InsuranceRiskCreate.vue', () => {
   it('displays errors about empty the name field', (done) => {
     const wrapper = mount(InsuranceRiskCreate)
     setTimeout(() => {
-      wrapper.find('#submit-form').trigger('click')
+      wrapper.find('#submit-form-btn').trigger('click')
 
       setTimeout(() => {
         expect(wrapper.vm.errors).to.have.property('riskName')
@@ -42,7 +42,7 @@ describe('InsuranceRiskCreate.vue', () => {
     }, 200)
   }),
 
-  it('displays errors about empty a risk field', (done) => {
+  it('displays errors about empty a field', (done) => {
     const wrapper = mount(InsuranceRiskCreate)
     const riskName = 'Risk name'
     const riskFieldValue = 'Risk field 1'
@@ -50,7 +50,7 @@ describe('InsuranceRiskCreate.vue', () => {
     setTimeout(() => {
       wrapper.find('#risk-name-input').setValue(riskName)
       wrapper.find('#add-field-btn').trigger('click')
-      wrapper.find('#submit-form').trigger('click')
+      wrapper.find('#submit-form-btn').trigger('click')
 
       setTimeout(() => {
         expect(wrapper.vm.errors).to.have.property(fieldId)
@@ -60,7 +60,7 @@ describe('InsuranceRiskCreate.vue', () => {
     }, 200)
   }),
 
-  it('submits a risk form', (done) => {
+  it('submits a form', (done) => {
     const wrapper = mount(InsuranceRiskCreate)
     const riskName = 'Risk name'
     const riskFieldValue = 'Risk field 1'
@@ -70,7 +70,7 @@ describe('InsuranceRiskCreate.vue', () => {
       wrapper.find('#add-field-btn').trigger('click')
 
       wrapper.find(`#risk-field-name-${fieldId}`).setValue(riskFieldValue)
-      wrapper.find('#submit-form').trigger('click')
+      wrapper.find('#submit-form-btn').trigger('click')
 
       setTimeout(() => {
         expect(wrapper.vm.errors).to.be.empty

@@ -90,7 +90,7 @@
         Add field
       </el-button>
       <el-button
-        id="submit-form"
+        id="submit-form-btn"
         icon="el-icon-circle-plus-outline"
         type="success"
         @click="submitForm"

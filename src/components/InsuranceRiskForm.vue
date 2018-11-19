@@ -51,7 +51,7 @@
 
       <el-form-item>
         <el-button
-          id="submitFormBtn"
+          id="submit-form-btn"
           icon="el-icon-circle-plus-outline"
           type="submit"
           @click="submitForm()"
