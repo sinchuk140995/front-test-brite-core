@@ -4,10 +4,7 @@ export default function (key) {
       let initData = {
         dataUploading: false,
         uploadingErrors: {},
-        baseUrl: 'http://localhost:8000/'
       }
-      // initData.uploadingErrors[key] = null
-
       return initData
     },
     methods: {
@@ -24,7 +21,7 @@ export default function (key) {
         this.dataUploading = true
         this.uploadingErrors = {}
 
-        this.$http.post(`${this.$data.baseUrl}${url}`, this.$data[key])
+        this.$http.post(url, this.$data[key])
           .then(function (response) {
             this.dataUploading = false
             this.$message({

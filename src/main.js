@@ -10,6 +10,7 @@ import './global-components'
 
 Vue.use(ElementUI)
 Vue.use(VueResource)
+Vue.http.options.root = process.env.API_URL || 'http://localhost:8000/'
 
 
 new Vue({

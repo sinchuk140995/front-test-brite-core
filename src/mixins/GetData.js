@@ -4,7 +4,6 @@ export default function (key) {
       let initData = {
         dataLoading: false,
         loadingErrors: {},
-        baseUrl: 'http://localhost:8000/'
       }
 
       initData.loadingErrors[key] = null
@@ -16,7 +15,7 @@ export default function (key) {
         this.dataLoading = true
         this.loadingErrors[key] = null
 
-        this.$http.get(`${this.$data.baseUrl}${url}`)
+        this.$http.get(url)
           .then(function ({body}) {
             this.$data[key] = body
             this.dataLoading = false

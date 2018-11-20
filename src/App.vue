@@ -48,6 +48,10 @@ export default {
     padding: 0;
   }*/
 
+  .error {
+    padding: 18px 20px;
+  }
+
 
   .el-form-item {
     display: flex;
