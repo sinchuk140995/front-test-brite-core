@@ -1,4 +1,4 @@
-export default function (key) {
+export default function (key, successUrlRedirect='home') {
   return {
     data () {
       let initData = {
@@ -29,6 +29,7 @@ export default function (key) {
               message: 'Success',
               type: 'success',
             });
+            this.$router.push({ name: successUrlRedirect })
           })
           .catch(function ({bodyText}) {
             this.parseErrors(bodyText)

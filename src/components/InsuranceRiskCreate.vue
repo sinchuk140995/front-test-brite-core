@@ -122,7 +122,7 @@ export default {
     }
   },
   mixins: [
-    PostPatchData('insuranceRisk'),
+    PostPatchData('insuranceRisk', 'home'),
     FieldValidation('errors'),
   ],
   methods: {
