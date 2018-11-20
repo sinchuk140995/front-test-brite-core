@@ -4,12 +4,15 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 import ElementUI from 'element-ui'
-import InsuranceRiskList from '../../src/components/InsuranceRiskList.vue'
+import VueResourceMock from 'vue-resource-mock'
+import InsuranceRiskList from '../../src/components/InsuranceRiskList'
+import MockData from './MockData'
 
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.use(ElementUI)
+Vue.use(VueResourceMock, MockData, /* { silent: true/false } */)
 
 
 const testTitle = 'Some title'
@@ -28,25 +31,26 @@ const factory = (propsData) => {
 
 
 describe('InsuranceRiskList.vue', () => {
-  it('renders props.title when passed', () => {
-    const wrapper = factory()
-    expect(wrapper.find('span').text()).to.equal(testTitle)
+  const wrapper = factory()
+  it('renders props.title when passed', (done) => {
+    // wrapper.vm.$nextTick(() => {
+    //     expect(wrapper.find('span').text()).to.equal(testTitle)
+    //     done()
+    // })
+    setTimeout(() => {
+      expect(wrapper.find('#title-risk').text()).to.not.be.empty
+      done()
+    }, 100)
   }),
 
   it('makes API call by props.riskListFetchApiUrl getting insurance risks', (done) => {
-    const wrapper = factory()
-    // wrapper.vm.$nextTick(() => {
-    //   console.log(wrapper.vm.insuranceRisks)
-    //   done()
-    // })
     setTimeout(() => {
-      expect(wrapper.vm.insuranceRisks.lenght).to.not.equal(0)
+      expect(wrapper.vm.insuranceRisks.length).to.not.equal(0)
       done()
-    }, 100);
+    }, 100)
   }),
 
   it('renders insurance risk links', (done) => {
-    const wrapper = factory()
     setTimeout(() => {
       expect(wrapper.contains('.link')).to.equal(true)
       done()

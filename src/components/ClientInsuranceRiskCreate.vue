@@ -14,7 +14,7 @@ export default {
   },
   computed: {
     insuranceRiskId () {
-        return this.$route.params.id
+        return this.$route.params.id || 1
     },
     riskFetchApiUrl () {
         return `api/risk/${this.insuranceRiskId}/`

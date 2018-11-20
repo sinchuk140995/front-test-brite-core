@@ -2,7 +2,7 @@
   <div v-loading="loading">
     <el-card class="box-card" :body-style="{ padding: '0px' }">
       <div slot="header" class="header clearfix">
-        <span class="header-title">{{ title }}</span>
+        <span class="header-title" id="title-risk">{{ title }}</span>
         <el-button style="float: right;" @click="goTo('insuranceRiskCreate')">
           Create new
         </el-button>

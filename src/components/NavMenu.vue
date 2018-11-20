@@ -10,20 +10,20 @@
 </template>
 
 <script type="text/javascript">
-  export default {
-    name: 'navMenu',
-    data() {
-      return {
-        activeItem: '0',
-      }
-    },
-    methods: {
-      handleSelect(key, keyPath) {
-        // console.log('key, keyPath', key, keyPath)
-        this.activeItem = key;
-      }
+export default {
+  name: 'navMenu',
+  data() {
+    return {
+      activeItem: '0',
+    }
+  },
+  methods: {
+    handleSelect(key, keyPath) {
+      // console.log('key, keyPath', key, keyPath)
+      this.activeItem = key;
     }
   }
+}
 </script>
 
 <style>
