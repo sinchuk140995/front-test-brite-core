@@ -1,16 +1,19 @@
 import { expect } from 'chai'
-import { shallowMount } from '@vue/test-utils'
+// import { shallowMount } from '@vue/test-utils'
 import { mount } from '@vue/test-utils'
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
 import ElementUI from 'element-ui'
+import VueResourceMock from 'vue-resource-mock'
 import InsuranceRiskCreate from '../../src/components/InsuranceRiskCreate.vue'
+import MockData from './MockData'
 
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.use(ElementUI)
+Vue.use(VueResourceMock, MockData, /* { silent: true/false } */)
 
 
 describe('InsuranceRiskCreate.vue', () => {

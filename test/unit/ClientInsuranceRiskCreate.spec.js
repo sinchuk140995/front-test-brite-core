@@ -18,7 +18,6 @@ Vue.use(VueResourceMock, MockData, /* { silent: true/false } */)
 
 
 describe('ClientInsuranceRiskCreate.vue', () => {
-  // const wrapper = factory()
 
   it('submits a form', (done) => {
     const wrapper = mount(ClientInsuranceRiskCreate, {
@@ -35,100 +34,93 @@ describe('ClientInsuranceRiskCreate.vue', () => {
           inputWrapper.setValue(textFieldValue)
         }
         else if (riskField.field_type === 'number') {
-          // let inputDiv = wrapper.find(`#input-number-${riskField.id}`)
-          // let inputWrapper = inputDiv.find('.el-input > input')
-          // inputWrapper.setValue(numberFieldValue)   // doesn't work with ElementUI components: value is stored in aria-valuenow
           riskField.value = numberFieldValue
         }
         else if (riskField.field_type === 'select') {
           let firstOption = riskField.options[0]
-          // let inputWrapper = wrapper.find(`#input-select-${riskField.id}-option-${firstOption.id}`)
-          // inputWrapper.setSelected()   // doesn't work with ElementUI components: wrapper.setSelected() cannot be called on this element
           riskField.select_option = firstOption.id
         }
       }
       wrapper.find('#submit-form-btn').trigger('click')
-      expect(wrapper.vm.errors).to.be.empty
+      expect(wrapper.vm.$children[0].errors).to.be.empty
       done()
     }, 100)
 
 
+  }),
+
+  it('displays a empty text field error after form submitting', (done) => {
+    const wrapper = mount(ClientInsuranceRiskCreate, {
+      router: router,
+      children: [InsuranceRiskForm],
+    })
+    const textFieldValue = 'Some data'
+    const numberFieldValue = 1
+
+    setTimeout(() => {
+      for (let riskField of wrapper.vm.$children[0].insuranceRisk.fields) {
+        if (riskField.field_type === 'number') {
+          riskField.value = numberFieldValue
+        }
+        else if (riskField.field_type === 'select') {
+          let firstOption = riskField.options[0]
+          riskField.select_option = firstOption.id
+        }
+      }
+      wrapper.find('#submit-form-btn').trigger('click')
+      expect(wrapper.vm.$children[0].errors).to.not.be.empty
+      done()
+    }, 100)
+  }),
+
+  it('displays a empty number field error after form submitting', (done) => {
+    const wrapper = mount(ClientInsuranceRiskCreate, {
+      router: router,
+      children: [InsuranceRiskForm],
+    })
+    const textFieldValue = 'Some data'
+    const numberFieldValue = 1
+
+    setTimeout(() => {
+      for (let riskField of wrapper.vm.$children[0].insuranceRisk.fields) {
+        if (riskField.field_type === 'text') {
+          let inputWrapper = wrapper.find(`#input-text-${riskField.id}`)
+          inputWrapper.setValue(textFieldValue)
+        }
+        else if (riskField.field_type === 'select') {
+          let firstOption = riskField.options[0]
+          riskField.select_option = firstOption.id
+        }
+      }
+      wrapper.find('#submit-form-btn').trigger('click')
+      expect(wrapper.vm.$children[0].errors).to.not.be.empty
+      done()
+    }, 100)
+  }),
+
+  it('displays a empty select field error after form submitting', (done) => {
+    const wrapper = mount(ClientInsuranceRiskCreate, {
+      router: router,
+      children: [InsuranceRiskForm],
+    })
+    const textFieldValue = 'Some data'
+    const numberFieldValue = 1
+
+    setTimeout(() => {
+      for (let riskField of wrapper.vm.$children[0].insuranceRisk.fields) {
+        if (riskField.field_type === 'text') {
+          let inputWrapper = wrapper.find(`#input-text-${riskField.id}`)
+          inputWrapper.setValue(textFieldValue)
+        }
+        else if (riskField.field_type === 'number') {
+          riskField.value = numberFieldValue
+        }
+      }
+      wrapper.find('#submit-form-btn').trigger('click')
+      expect(wrapper.vm.$children[0].errors).to.not.be.empty
+      done()
+    }, 100)
   })
-
-  // it('displays a empty text field error after form submitting', (done) => {
-  //   const wrapper = factory()
-  //   const textFieldValue = 'Some data'
-  //   const numberFieldValue = 1
-
-  //   setTimeout(() => {
-  //     for (let riskField of wrapper.vm.insuranceRisk.fields) {
-  //       if (riskField.field_type === 'text') {
-  //         let inputWrapper = wrapper.find(`#input-text-${riskField.id}`)
-  //         // inputWrapper.setValue(textFieldValue)
-  //       }
-  //       else if (riskField.field_type === 'number') {
-  //         riskField.value = numberFieldValue
-  //       }
-  //       else if (riskField.field_type === 'select') {
-  //         let firstOption = riskField.options[0]
-  //         riskField.select_option = firstOption.id
-  //       }
-  //     }
-  //     wrapper.find('#submit-form-btn').trigger('click')
-  //     expect(wrapper.vm.errors).to.not.be.empty
-  //     done()
-  //   }, 100)
-  // }),
-
-  // it('displays a empty number field error after form submitting', (done) => {
-  //   const wrapper = factory()
-  //   const textFieldValue = 'Some data'
-  //   const numberFieldValue = 1
-
-  //   setTimeout(() => {
-  //     for (let riskField of wrapper.vm.insuranceRisk.fields) {
-  //       if (riskField.field_type === 'text') {
-  //         let inputWrapper = wrapper.find(`#input-text-${riskField.id}`)
-  //         inputWrapper.setValue(textFieldValue)
-  //       }
-  //       else if (riskField.field_type === 'number') {
-  //         // riskField.value = numberFieldValue
-  //       }
-  //       else if (riskField.field_type === 'select') {
-  //         let firstOption = riskField.options[0]
-  //         riskField.select_option = firstOption.id
-  //       }
-  //     }
-  //     wrapper.find('#submit-form-btn').trigger('click')
-  //     expect(wrapper.vm.errors).to.not.be.empty
-  //     done()
-  //   }, 100)
-  // }),
-
-  // it('displays a empty select field error after form submitting', (done) => {
-  //   const wrapper = factory()
-  //   const textFieldValue = 'Some data'
-  //   const numberFieldValue = 1
-
-  //   setTimeout(() => {
-  //     for (let riskField of wrapper.vm.insuranceRisk.fields) {
-  //       if (riskField.field_type === 'text') {
-  //         let inputWrapper = wrapper.find(`#input-text-${riskField.id}`)
-  //         inputWrapper.setValue(textFieldValue)
-  //       }
-  //       else if (riskField.field_type === 'number') {
-  //         riskField.value = numberFieldValue
-  //       }
-  //       else if (riskField.field_type === 'select') {
-  //         // let firstOption = riskField.options[0]
-  //         // riskField.select_option = firstOption.id
-  //       }
-  //     }
-  //     wrapper.find('#submit-form-btn').trigger('click')
-  //     expect(wrapper.vm.errors).to.not.be.empty
-  //     done()
-  //   }, 100)
-  // })
 
 
 })

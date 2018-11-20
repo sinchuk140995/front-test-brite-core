@@ -44,7 +44,6 @@ export default function (errors) {
         }
         else if (field.field_type === 'select') {
           for (let optionIndex = 0; optionIndex < field.options.length; optionIndex++) {
-            console.log(`${index}-option-${optionIndex}`)
             let option = field.options[optionIndex]
             if (!option.name) {
               let optionErrorKey = `${index}-option-${optionIndex}`

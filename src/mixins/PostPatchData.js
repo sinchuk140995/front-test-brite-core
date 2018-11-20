@@ -27,7 +27,6 @@ export default function (key) {
         this.$http.post(`${this.$data.baseUrl}${url}`, this.$data[key])
           .then(function (response) {
             this.dataUploading = false
-            console.log('postResource', response)
             this.$message({
               showClose: true,
               message: 'Success',
@@ -35,7 +34,6 @@ export default function (key) {
             });
           })
           .catch(function ({bodyText}) {
-            console.log(bodyText)
             this.parseErrors(bodyText)
             this.displayUploadingErrors()
             this.dataUploading = false

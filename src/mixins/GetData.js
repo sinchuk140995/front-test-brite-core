@@ -18,7 +18,6 @@ export default function (key) {
 
         this.$http.get(`${this.$data.baseUrl}${url}`)
           .then(function ({body}) {
-            console.log('Get data', body)
             this.$data[key] = body
             this.dataLoading = false
           })

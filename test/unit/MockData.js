@@ -26,6 +26,23 @@ export default {
     }
   },
 
+  ['GET */api/client/risk/'] (pathMatch, query, request, passThrough) {
+    let body = [
+      { id: 1, name: 'Risk 1', post_date: Date.now() },
+      { id: 2, name: 'Risk 2', post_date: Date.now() },
+    ]
+
+    return {
+      body: body,
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      // statusText: 'OK',
+      // delay: 500, // millisecond
+    }
+  },
+
   ['GET */api/risk/1/'] (pathMatch, query, request, passThrough) {
     // before respond, you can check the path and query parameters with `pathMatch` & `query`
     // powered by 'url-pattern' & 'qs'
@@ -87,6 +104,14 @@ export default {
         'Content-Type': 'application/json'
       },
     }
-  }, // { /*whatever*/ } // respond with only body, status code = 200
+  },
 
+  ['POST */api/risk/create/'] () {
+    return {
+      status: 201,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }
+  },
 }

@@ -31,8 +31,8 @@ const factory = (propsData) => {
 
 
 describe('InsuranceRiskList.vue', () => {
-  const wrapper = factory()
   it('renders props.title when passed', (done) => {
+    const wrapper = factory()
     // wrapper.vm.$nextTick(() => {
     //     expect(wrapper.find('span').text()).to.equal(testTitle)
     //     done()
@@ -44,6 +44,7 @@ describe('InsuranceRiskList.vue', () => {
   }),
 
   it('makes API call by props.riskListFetchApiUrl getting insurance risks', (done) => {
+    const wrapper = factory()
     setTimeout(() => {
       expect(wrapper.vm.insuranceRisks.length).to.not.equal(0)
       done()
@@ -51,6 +52,7 @@ describe('InsuranceRiskList.vue', () => {
   }),
 
   it('renders insurance risk links', (done) => {
+    const wrapper = factory()
     setTimeout(() => {
       expect(wrapper.contains('.link')).to.equal(true)
       done()

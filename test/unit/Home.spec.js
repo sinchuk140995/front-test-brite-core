@@ -6,7 +6,7 @@ import VueRouter from 'vue-router'
 import ElementUI from 'element-ui'
 import VueResourceMock from 'vue-resource-mock'
 import MockData from './MockData'
-import ClientInsuranceRiskList from '../../src/components/ClientInsuranceRiskList'
+import Home from '../../src/components/Home'
 import InsuranceRiskList from '../../src/components/InsuranceRiskList'
 import router from '../../src/router'
 
@@ -17,8 +17,8 @@ Vue.use(ElementUI)
 Vue.use(VueResourceMock, MockData, /* { silent: true/false } */)
 
 
-describe('ClientInsuranceRiskList.vue', () => {
-  const wrapper = mount(ClientInsuranceRiskList, {
+describe('Home.vue', () => {
+  const wrapper = mount(Home, {
     router: router,
     children: [InsuranceRiskList],
   })
