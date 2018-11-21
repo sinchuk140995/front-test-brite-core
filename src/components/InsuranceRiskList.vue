@@ -3,8 +3,8 @@
     <el-card class="box-card" :body-style="{ padding: '0px' }">
       <div slot="header" class="header clearfix">
         <span class="header-title" id="title-risk">{{ title }}</span>
-        <el-button style="float: right;" @click="goTo('insuranceRiskCreate')">
-          Create new
+        <el-button v-if="addNewTypeBtnText" style="float: right;" @click="goTo('insuranceRiskCreate')">
+          {{ addNewTypeBtnText }}
         </el-button>
       </div>
 
@@ -40,6 +40,9 @@ export default {
     riskListFetchApiUrl: {
       // type: String
       required: true,
+    },
+    addNewTypeBtnText: {
+      type: String,
     },
   },
   mixins: [

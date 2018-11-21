@@ -1,10 +1,10 @@
 <template>
     <el-menu :default-active="activeItem" :router="true" @select="handleSelect" mode="horizontal" >
       <el-menu-item index="0" :route="{ name: 'home' }">
-        Home
+        RISK TYPES
       </el-menu-item>
       <el-menu-item index="1" :route="{ name: 'clientInsuranceRisks' }">
-        Client insurance risks
+        POLICIES
       </el-menu-item>
     </el-menu>
 </template>
