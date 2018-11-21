@@ -29,10 +29,4 @@ new Vue({
   el: '#app',
   render: h => h(App),
   router,
-  http: {
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Content-Type': 'application/json',
-    }
-  },
 })

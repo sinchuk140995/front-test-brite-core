@@ -92,7 +92,7 @@ export default {
   },
   mixins: [
     GetData('insuranceRisk'),
-    PostPatchData('insuranceRisk'),
+    PostPatchData('insuranceRisk', 'clientInsuranceRisks'),
     FieldValidation('errors'),
   ],
   created () {

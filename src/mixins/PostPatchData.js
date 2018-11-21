@@ -1,4 +1,4 @@
-export default function (key, successUrlRedirect='home') {
+export default function (key, successUrlNameRedirect='home') {
   return {
     data () {
       let initData = {
@@ -28,8 +28,8 @@ export default function (key, successUrlRedirect='home') {
               showClose: true,
               message: 'Success',
               type: 'success',
-            });
-            this.$router.push({ name: successUrlRedirect })
+            })
+            this.$router.push({ name: successUrlNameRedirect })
           })
           .catch(function ({bodyText}) {
             this.parseErrors(bodyText)
@@ -50,14 +50,15 @@ export default function (key, successUrlRedirect='home') {
         this.dataUploading = true
         this.uploadingErrors = {}
 
-        this.$http.patch(`${this.$data.baseUrl}${url}`, this.$data[key])
+        this.$http.patch(url, this.$data[key])
           .then(function (response) {
             this.dataUploading = false
             this.$message({
               showClose: true,
               message: 'Success',
               type: 'success',
-            });
+            })
+            this.$router.push({ name: successUrlNameRedirect })
           })
           .catch(function ({bodyText}) {
             this.parseErrors(bodyText)
