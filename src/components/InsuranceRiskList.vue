@@ -1,20 +1,51 @@
 <template>
   <div v-loading="loading">
-    <el-card class="box-card" :body-style="{ padding: '0px' }">
-      <div slot="header" class="header clearfix">
-        <span class="header-title" id="title-risk">{{ title }}</span>
-        <el-button v-if="addNewTypeBtnText" style="float: right;" @click="goTo('insuranceRiskCreate')">
+    <el-card
+      class="box-card"
+      :body-style="{ padding: '0px' }"
+    >
+      <div
+        slot="header"
+        class="header clearfix"
+      >
+        <span
+          id="title-risk"
+          class="header-title"
+        >
+          {{ title }}
+        </span>
+        <el-button
+          v-if="addNewTypeBtnText"
+          style="float: right;"
+          @click="goTo('insuranceRiskCreate')"
+        >
           {{ addNewTypeBtnText }}
         </el-button>
       </div>
 
-      <div class="error" v-if="hasErrors">
-        Can't load the questions
+      <div
+        class="error"
+        v-if="hasErrors"
+      >
+        Can't load the {{ title }}
       </div>
 
-      <div v-for="risk in insuranceRisks" :key="risk.id" class="text item">
-        <router-link class="link" :to="{ name: riskDetailRouteName, params: {id: risk.id} }" :key="risk.id">{{ risk.name }}
+      <div
+        v-for="(risk, index) in insuranceRisks"
+        :key="risk.id"
+        class="text item"
+      >
+        <router-link
+          class="link"
+          :to="{ name: riskDetailRouteName, params: {id: risk.id} }"
+          :key="risk.id"
+        >
+          {{ risk.name }}
         </router-link>
+        <i
+          class="el-icon-delete"
+          @click="deleteInsuranceRisk(index)"
+        ></i>
       </div>
     </el-card>
   </div>
@@ -22,6 +53,7 @@
 
 <script>
 import GetData from '../mixins/GetData'
+import DeleteData from '../mixins/DeleteData'
 export default {
   data () {
     return {
@@ -38,7 +70,7 @@ export default {
       required: true,
     },
     riskListFetchApiUrl: {
-      // type: String
+      type: String,
       required: true,
     },
     addNewTypeBtnText: {
@@ -46,12 +78,18 @@ export default {
     },
   },
   mixins: [
-    GetData('insuranceRisks')
+    GetData('insuranceRisks'),
+    DeleteData(),
   ],
   methods: {
     goTo(pathName) {
       this.$router.push({ name: 'insuranceRiskCreate' });
-      // :route="{ name: 'insuranceRiskCreate' }"
+    },
+    deleteInsuranceRisk(arrayIndex) {
+      let risk = this.insuranceRisks[arrayIndex]
+      let deleteRiskApiUrl = `${this.riskListFetchApiUrl}${risk.id}/delete/`
+      this.deleteResource(deleteRiskApiUrl)
+      this.insuranceRisks.splice(arrayIndex, 1)
     }
   },
   created () {
@@ -81,6 +119,7 @@ export default {
 
   .header-title {
     margin-right: 30px;
+    text-transform: uppercase;
   }
 
   .text {
@@ -88,7 +127,14 @@ export default {
   }
 
   .item {
+    display: flex;
     margin-bottom: 0;
+  }
+
+  .el-icon-delete {
+    display: block;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
   }
 
   .clearfix:before,
@@ -110,6 +156,7 @@ export default {
   }
 
   .link {
+    flex: 1;
     text-decoration: none;
     color: inherit;
     display: block;

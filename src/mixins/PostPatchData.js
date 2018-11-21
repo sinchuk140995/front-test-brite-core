@@ -68,10 +68,8 @@ export default function (key, successUrlNameRedirect='home') {
       },
       parseErrors (bodyText) {
         let bodyObj = JSON.parse(bodyText)
-        // console.log(bodyObj)
         for (let key in bodyObj) {
           for (let error of bodyObj[key]) {
-            // console.log(key, bodyObj[key], error)
             this.uploadingErrors[key] = error
           }
         }

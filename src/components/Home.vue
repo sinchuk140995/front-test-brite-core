@@ -1,6 +1,6 @@
 <template>
   <insurance-risk-list
-    title='RISK TYPES'
+    title='risk types'
     riskDetailRouteName='insuranceRiskTake'
     riskListFetchApiUrl='api/risk/'
     addNewTypeBtnText='Add new risk type'

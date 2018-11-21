@@ -2,7 +2,8 @@
   <insurance-risk-list
     title='POLICIES LIST'
     riskDetailRouteName='clientInsuranceRiskEdit'
-    riskListFetchApiUrl='api/client/risk/'>
+    riskListFetchApiUrl='api/client/risk/'
+  >
   </insurance-risk-list>
 </template>
 

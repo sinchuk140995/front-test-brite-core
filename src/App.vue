@@ -37,17 +37,6 @@ export default {
     padding: 0 10px;
   }
 
-/*  .form-wrapper {
-    width: 400px;
-    padding: 0 10px;
-    margin: auto;
-  }
-
-  .form-wrapper .el-form {
-    width: 100%;
-    padding: 0;
-  }*/
-
   .error {
     padding: 18px 20px;
   }
@@ -91,7 +80,6 @@ export default {
     }
 
     .el-button {
-      /*font-size: 70%;*/
       padding: 10px 15px;
     }
 

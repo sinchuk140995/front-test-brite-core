@@ -128,18 +128,8 @@ export default {
       return this.hasLoadingErrors || this.hasUploadingErrors
     },
   },
-  // watch: {
-  //   insuranceRisk () {
-  //     for (let field of this.insuranceRisk.fields) {
-  //       this.errors[field.name] = ''
-  //     }
-  //   },
-  // },
 }
 </script>
 
 <style>
-  .form-wrapper {
-    /*width: 100%;*/
-  }
 </style>
