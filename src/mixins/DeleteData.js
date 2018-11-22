@@ -1,4 +1,4 @@
-export default function () {
+export default function (key) {
   return {
     data () {
       let initData = {
@@ -8,7 +8,7 @@ export default function () {
       return initData
     },
     methods: {
-      deleteResource (url) {
+      deleteResource (arrayIndex, riskListFetchApiUrl) {
         if (this.dataDeleting) {
           this.$message({
             showClose: true,
@@ -21,8 +21,11 @@ export default function () {
         this.dataDeleting = true
         this.deletingErrors = {}
 
-        this.$http.delete(url)
+        let risk = this.$data[key][arrayIndex]
+        let deleteRiskApiUrl = `${riskListFetchApiUrl}${risk.id}/delete/`
+        this.$http.delete(deleteRiskApiUrl)
           .then(function (response) {
+            this.$data[key].splice(arrayIndex, 1)
             this.dataDeleting = false
             this.$message({
               showClose: true,
@@ -39,8 +42,12 @@ export default function () {
       parseErrors (bodyText) {
         let bodyObj = JSON.parse(bodyText)
         for (let key in bodyObj) {
-          for (let error of bodyObj[key]) {
-            this.deletingErrors[key] = error
+          if (typeof bodyObj[key] === 'array') {
+            for (let error of bodyObj[key]) {
+              this.deletingErrors[key] = error
+            }
+          } else {
+            this.deletingErrors[key] = bodyObj[key]
           }
         }
       },

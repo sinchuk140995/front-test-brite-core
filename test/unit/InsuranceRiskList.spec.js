@@ -31,19 +31,15 @@ const factory = (propsData) => {
 
 
 describe('InsuranceRiskList.vue', () => {
-  it('renders props.title when passed', (done) => {
+  it('renders a props.title when passed', (done) => {
     const wrapper = factory()
-    // wrapper.vm.$nextTick(() => {
-    //     expect(wrapper.find('span').text()).to.equal(testTitle)
-    //     done()
-    // })
     setTimeout(() => {
       expect(wrapper.find('#title-risk').text()).to.not.be.empty
       done()
     }, 100)
   }),
 
-  it('makes API call by props.riskListFetchApiUrl getting insurance risks', (done) => {
+  it('makes API call by a props.riskListFetchApiUrl getting insurance risks', (done) => {
     const wrapper = factory()
     setTimeout(() => {
       expect(wrapper.vm.insuranceRisks.length).to.not.equal(0)
@@ -55,6 +51,18 @@ describe('InsuranceRiskList.vue', () => {
     const wrapper = factory()
     setTimeout(() => {
       expect(wrapper.contains('.link')).to.equal(true)
+      done()
+    }, 100);
+  }),
+
+  it('removes a insurance risk', (done) => {
+    const wrapper = factory()
+    setTimeout(() => {
+      const riskLengthBeforeDelete = wrapper.vm.insuranceRisks.length
+      wrapper.find('#risk-delete-link-0').trigger('click')
+      setTimeout(() => {
+        expect(wrapper.vm.insuranceRisks).to.have.lengthOf(riskLengthBeforeDelete - 1)
+      }, 100)
       done()
     }, 100);
   })

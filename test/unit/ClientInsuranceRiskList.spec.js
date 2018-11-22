@@ -18,7 +18,7 @@ Vue.use(VueResourceMock, MockData, /* { silent: true/false } */)
 
 
 describe('ClientInsuranceRiskList.vue', () => {
-  it('renders props.title', (done) => {
+  it('renders a props.title', (done) => {
     const wrapper = mount(ClientInsuranceRiskList, {
       router: router,
       children: [InsuranceRiskList],
@@ -35,10 +35,24 @@ describe('ClientInsuranceRiskList.vue', () => {
       children: [InsuranceRiskList],
     })
     setTimeout(() => {
-      console.log(wrapper.vm.$children[0].insuranceRisks.length)
       expect(wrapper.vm.$children[0].insuranceRisks.length).to.not.equal(0)
       done()
     }, 100)
+  }),
+
+  it('removes a client insurance risk', (done) => {
+    const wrapper = mount(ClientInsuranceRiskList, {
+      router: router,
+      children: [InsuranceRiskList],
+    })
+    setTimeout(() => {
+      const riskLengthBeforeDelete = wrapper.vm.$children[0].insuranceRisks.length
+      wrapper.find('#risk-delete-link-0').trigger('click')
+      setTimeout(() => {
+        expect(wrapper.vm.$children[0].insuranceRisks).to.have.lengthOf(riskLengthBeforeDelete - 1)
+      }, 100)
+      done()
+    }, 100);
   })
 
 })

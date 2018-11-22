@@ -43,6 +43,7 @@
           {{ risk.name }}
         </router-link>
         <i
+          :id="`risk-delete-link-${index}`"
           class="el-icon-delete"
           @click="deleteInsuranceRisk(index)"
         ></i>
@@ -79,17 +80,14 @@ export default {
   },
   mixins: [
     GetData('insuranceRisks'),
-    DeleteData(),
+    DeleteData('insuranceRisks'),
   ],
   methods: {
     goTo(pathName) {
       this.$router.push({ name: 'insuranceRiskCreate' });
     },
     deleteInsuranceRisk(arrayIndex) {
-      let risk = this.insuranceRisks[arrayIndex]
-      let deleteRiskApiUrl = `${this.riskListFetchApiUrl}${risk.id}/delete/`
-      this.deleteResource(deleteRiskApiUrl)
-      this.insuranceRisks.splice(arrayIndex, 1)
+      this.deleteResource(arrayIndex, this.riskListFetchApiUrl)
     }
   },
   created () {
