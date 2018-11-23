@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from './components/Home'
 import InsuranceRiskCreate from './components/InsuranceRiskCreate'
+import InsuranceRiskEdit from './components/InsuranceRiskEdit'
 import ClientInsuranceRiskList from './components/ClientInsuranceRiskList'
 import ClientInsuranceRiskCreate from './components/ClientInsuranceRiskCreate'
 import ClientInsuranceRiskEdit from './components/ClientInsuranceRiskEdit'
@@ -26,8 +27,13 @@ const routes = [
     },
     {
       path: '/risk/:id/',
-      name: 'insuranceRiskTake',
+      name: 'clientInsuranceRiskCreate',
       component: ClientInsuranceRiskCreate,
+    },
+    {
+      path: '/risk/:id/edit/',
+      name: 'insuranceRiskEdit',
+      component: InsuranceRiskEdit,
     },
     {
       path: '/client/risk/:id/edit',

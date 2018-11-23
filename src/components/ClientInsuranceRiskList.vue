@@ -1,6 +1,6 @@
 <template>
   <insurance-risk-list
-    title='POLICIES LIST'
+    title='policies list'
     riskDetailRouteName='clientInsuranceRiskEdit'
     riskListFetchApiUrl='api/client/risk/'
   >

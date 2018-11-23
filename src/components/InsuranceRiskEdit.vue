@@ -12,14 +12,13 @@
           id="title-risk"
           class="header-title"
         >
-          {{ title }}
+          {{ insuranceRisk.name }}
         </span>
         <el-button
-          v-if="addNewTypeBtnText"
           style="float: right;"
-          @click="goTo('insuranceRiskCreate')"
+          @click="goTo('home')"
         >
-          {{ addNewTypeBtnText }}
+          Back
         </el-button>
       </div>
 
@@ -27,36 +26,25 @@
         class="error"
         v-if="hasErrors"
       >
-        Can't load the {{ title }}
+        Can't load the risk
       </div>
 
       <div
-        v-for="(risk, index) in insuranceRisks"
-        :key="risk.id"
+        v-for="(field, index) in insuranceRisk.fields"
+        :key="field.id"
         class="text box-row"
       >
-        <router-link
-          class="link"
-          :to="{ name: riskDetailRouteName, params: {id: risk.id} }"
-          :key="risk.id"
-        >
-          {{ risk.name }}
-        </router-link>
+        <span class="box-row-item"><i>Name:</i> {{ field.name }}</span>
+        <span class="box-row-item"><i>Type:</i> {{ field.field_type }}</span>
 
         <i
-          v-if="riskEditRouteName"
-          :id="`risk-edit-link-${index}`"
-          class="el-icon-edit"
-          @click="goTo(riskEditRouteName, {id: risk.id})"
-        ></i>
-
-        <i
-          :id="`risk-delete-link-${index}`"
+          :id="`field-delete-link-${index}`"
           class="el-icon-delete"
-          @click="deleteInsuranceRisk(index)"
+          @click="deleteRiskField(index)"
         ></i>
 
       </div>
+
     </el-card>
   </div>
 </template>
@@ -68,43 +56,24 @@ import GoTo from '../mixins/GoTo'
 export default {
   data () {
     return {
-      insuranceRisks: [],
+      insuranceRisk: [],
     }
   },
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    riskDetailRouteName: {
-      type: String,
-      required: true,
-    },
-    riskListFetchApiUrl: {
-      type: String,
-      required: true,
-    },
-    addNewTypeBtnText: {
-      type: String,
-    },
-    riskEditRouteName: {
-      type: String,
-    },
-  },
   mixins: [
-    GetData('insuranceRisks'),
-    DeleteData('insuranceRisks'),
+    GetData('insuranceRisk'),
+    DeleteData('insuranceRisk.fields'),
     GoTo,
   ],
-  methods: {
-    deleteInsuranceRisk(arrayIndex) {
-      let risk = this.insuranceRisks[arrayIndex]
-      let deleteRiskApiUrl = `${this.riskListFetchApiUrl}${risk.id}/delete/`
-      this.deleteResourceFromList(arrayIndex, deleteRiskApiUrl)
-    },
-  },
   created () {
-    this.fetchResource(this.riskListFetchApiUrl)
+    let riskDetailApiUrl = `api/risk/${this.riskId}/`
+    this.fetchResource(riskDetailApiUrl)
+  },
+  methods: {
+    deleteRiskField(arrayIndex) {
+      let field = this.insuranceRisk.fields[arrayIndex]
+      let fieldDeleteApiUrl = `api/field/${field.id}/delete/`
+      this.deleteResourceFromList(arrayIndex, fieldDeleteApiUrl)
+    },
   },
   computed: {
     loading () {
@@ -113,11 +82,14 @@ export default {
     hasErrors () {
       return this.hasLoadingErrors
     },
+    riskId () {
+      return this.$route.params.id
+    },
   },
 }
 </script>
 
-<style scoped>
+<style>
   .header {
     display: flex;
     justify-content: space-between;
@@ -146,19 +118,15 @@ export default {
     background-color: #ddd;
   }
 
-  .el-icon-edit,
+
   .el-icon-delete {
     display: block;
     padding: 15px 5px 15px 5px;
     border-bottom: 1px solid #ddd;
   }
 
-  .el-icon-edit:hover {
-    background-color: #FEE366;
-  }
-
   .el-icon-delete:hover {
-    background-color: #EF591B;
+    background-color: #EF7C1B;
   }
 
   .clearfix:before,
@@ -175,11 +143,7 @@ export default {
     max-width: calc(100vw - 20px);
   }
 
-  .el-card__body {
-    padding: 0;
-  }
-
-  .link {
+  .box-row-item {
     flex: 1;
     text-decoration: none;
     color: inherit;
@@ -188,4 +152,5 @@ export default {
     border-bottom: 1px solid #ddd;
     transition: background-color 300ms;
   }
+
 </style>

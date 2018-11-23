@@ -1,9 +1,10 @@
 <template>
   <insurance-risk-list
     title='risk types'
-    riskDetailRouteName='insuranceRiskTake'
+    riskDetailRouteName='clientInsuranceRiskCreate'
     riskListFetchApiUrl='api/risk/'
     addNewTypeBtnText='Add new risk type'
+    riskEditRouteName='insuranceRiskEdit'
   >
   </insurance-risk-list>
 </template>

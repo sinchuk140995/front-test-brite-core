@@ -8,7 +8,7 @@ export default function (key) {
       return initData
     },
     methods: {
-      deleteResource (arrayIndex, riskListFetchApiUrl) {
+      deleteResourceFromList (arrayIndex, deleteRiskApiUrl) {
         if (this.dataDeleting) {
           this.$message({
             showClose: true,
@@ -21,11 +21,11 @@ export default function (key) {
         this.dataDeleting = true
         this.deletingErrors = {}
 
-        let risk = this.$data[key][arrayIndex]
-        let deleteRiskApiUrl = `${riskListFetchApiUrl}${risk.id}/delete/`
+        let resourceList = this.getProperty(key, this.$data)
+
         this.$http.delete(deleteRiskApiUrl)
           .then(function (response) {
-            this.$data[key].splice(arrayIndex, 1)
+            resourceList.splice(arrayIndex, 1)
             this.dataDeleting = false
             this.$message({
               showClose: true,
@@ -38,6 +38,14 @@ export default function (key) {
             this.displayDeletingErrors()
             this.dataDeleting = false
           })
+      },
+      getProperty (propertyName, object) {
+        let parts = propertyName.split( "." )
+        let property = object
+        for (let part of parts) {
+          property = property[part]
+        }
+        return property
       },
       parseErrors (bodyText) {
         let bodyObj = JSON.parse(bodyText)
