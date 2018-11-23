@@ -14,7 +14,7 @@ node -v
 ```
 
 If nodejs is not installed in your system, use your package manager for installing.
-For installing system packages will be used APT - a set of tools for managing Debian packages.
+For installing system packages will be used **APT** - a set of tools for managing Debian packages.
 Install nodejs and npm:
 ```console
 sudo apt install nodejs npm
@@ -63,7 +63,7 @@ front_test_brite_core folder contains the following files:
 * **server.js:** initializes node-static Server.
 * **package.json:** contains the configuration and dependencies.
 
-### Src folder
+### src folder
 
 src folder structure looks as follows:
 
@@ -78,12 +78,12 @@ src folder contains the following files:
     ├── main.js
     └── router.js
 
-* **App.vue:** a Single File Component.
+* **App.vue:** the main Single File Component.
 * **main.js:** the main JavaScript files that drive our app.
 * **router.js:** contains the project routes.
 
 
-### Src/Components folder
+### src/components folder
 
 src/components folder contains the following components:
 
@@ -97,12 +97,30 @@ src/components folder contains the following components:
     └── NavMenu.vue
 
 
-* _ClientInsuranceRiskCreate.vue:_ contains a create client insurance risk(policy) form.
-* _ClientInsuranceRiskList.vue:_ displays client insurance risks(policies).
-* _Home.spec.js:_ displays all client risks(risk types).
-* _InsuranceRiskCreate.vue:_ contains a create insurance risk(risk type) form.
-* _InsuranceRiskForm.vue:_ contains a create/edit client insurance risk(policy) form.
-* _InsuranceRiskList.vue:_ displays insurance risk(risk types) or client insurance risks(policies) depending on prop.riskListFetchApiUrl.
+* _ClientInsuranceRiskCreate.vue:_ displays a create _client insurance risk_(policy) form using InsuranceRiskForm.
+* _ClientInsuranceRiskEdit.vue:_ displays a edite _client insurance risk_(displays policy) form using InsuranceRiskForm.
+* _ClientInsuranceRiskList.vue:_ displays _client insurance risks_(policies) using InsuranceRiskList.
+* _Home.spec.js:_ displays all _client risks_(risk types) using InsuranceRiskList.
+* _InsuranceRiskCreate.vue:_ contains a create _insurance risk_(risk type) form.
+* _InsuranceRiskForm.vue:_ contains a create/edit _client insurance risk_(policy) form.
+* _InsuranceRiskList.vue:_ displays _insurance risk_(risk types) or _client insurance risks_(policies) depending on prop.riskListFetchApiUrl.
+
+
+### src/mixins folder
+
+src/mixins folder contains the following components:
+
+    src/mixins/
+    ├── DeleteData.js
+    ├── FieldValidation.js
+    ├── GetData.js
+    └── PostPatchData.js
+
+
+* _DeleteData.js:_ methods for deleting resources, displaying delete errors.
+* _FieldValidation.js:_ methods for generic form validation rules: required, min_length.
+* _GetData.js:_ methods for fetching resources, displaying fetch errors.
+* _PostPatchData.js:_ methods for posting/patching resources, displaying post/patch errors.
 
 
 ## Running the tests
@@ -127,11 +145,11 @@ The **test/unit** folder contains unit tests for the project:
 
 
 * _ClientInsuranceRiskCreate.spec.js:_ tests submitting a create form and displaying empty fields errors.
-* _ClientInsuranceRiskList.spec.js:_ tests rendering client insurance risks(policies), deleting a client insurance risk and displaying of a title.
-* _Home.spec.js:_ tests rendering insurance risks(risk types), deleting a insurance risks(risk types) and displaying of a title.
-* _InsuranceRiskCreate.spec.js:_ tests submitting create insurance risks(risk types) forms, displaying the empty fields errors and error about insufficient number of fields.
-* _InsuranceRiskForm.spec.js:_ tests submitting create and edit clients insurance risks(policies) forms and displaying the empty fields errors.
-* _InsuranceRiskList.spec.js:_ tests fetching and rendering insurance risks(risk types)/client insurance risks(policies), passing props and deleting a insurance risk(risk type)/client insurance risk(policy).
+* _ClientInsuranceRiskList.spec.js:_ tests rendering _client insurance risks_(policies), deleting a _client insurance risk_ and displaying of a title.
+* _Home.spec.js:_ tests rendering _insurance risks_(risk types), deleting a _insurance risks_(risk types) and displaying of a title.
+* _InsuranceRiskCreate.spec.js:_ tests submitting a create _insurance risks_(risk types) forms, displaying the empty fields errors and error about insufficient number of fields.
+* _InsuranceRiskForm.spec.js:_ tests submitting a create and edit _clients insurance risks_(policies) forms and displaying the empty fields errors.
+* _InsuranceRiskList.spec.js:_ tests fetching and rendering _insurance risks_(risk types)/_client insurance risks_(policies), passing props and deleting a _insurance risk_(risk type)/_client insurance risk_(policy).
 * _MockData.spec.js:_ contains mocking data for API calls.
 
 ## Deployment
