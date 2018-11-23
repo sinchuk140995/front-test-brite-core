@@ -31,8 +31,6 @@ const factory = (propsData) => {
 
 
 describe('InsuranceRiskForm.vue', () => {
-  // const wrapper = factory()
-
   it('submits a form', (done) => {
     const wrapper = factory()
     const textFieldValue = 'Some data'
@@ -45,15 +43,10 @@ describe('InsuranceRiskForm.vue', () => {
           inputWrapper.setValue(textFieldValue)
         }
         else if (riskField.field_type === 'number') {
-          // let inputDiv = wrapper.find(`#input-number-${riskField.id}`)
-          // let inputWrapper = inputDiv.find('.el-input > input')
-          // inputWrapper.setValue(numberFieldValue)   // doesn't work with ElementUI components: value is stored in aria-valuenow
           riskField.value = numberFieldValue
         }
         else if (riskField.field_type === 'select') {
           let firstOption = riskField.options[0]
-          // let inputWrapper = wrapper.find(`#input-select-${riskField.id}-option-${firstOption.id}`)
-          // inputWrapper.setSelected()   // doesn't work with ElementUI components: wrapper.setSelected() cannot be called on this element
           riskField.select_option = firstOption.id
         }
       }
@@ -72,11 +65,7 @@ describe('InsuranceRiskForm.vue', () => {
 
     setTimeout(() => {
       for (let riskField of wrapper.vm.insuranceRisk.fields) {
-        if (riskField.field_type === 'text') {
-          let inputWrapper = wrapper.find(`#input-text-${riskField.id}`)
-          // inputWrapper.setValue(textFieldValue)
-        }
-        else if (riskField.field_type === 'number') {
+        if (riskField.field_type === 'number') {
           riskField.value = numberFieldValue
         }
         else if (riskField.field_type === 'select') {
@@ -100,9 +89,6 @@ describe('InsuranceRiskForm.vue', () => {
         if (riskField.field_type === 'text') {
           let inputWrapper = wrapper.find(`#input-text-${riskField.id}`)
           inputWrapper.setValue(textFieldValue)
-        }
-        else if (riskField.field_type === 'number') {
-          // riskField.value = numberFieldValue
         }
         else if (riskField.field_type === 'select') {
           let firstOption = riskField.options[0]
@@ -128,10 +114,6 @@ describe('InsuranceRiskForm.vue', () => {
         }
         else if (riskField.field_type === 'number') {
           riskField.value = numberFieldValue
-        }
-        else if (riskField.field_type === 'select') {
-          // let firstOption = riskField.options[0]
-          // riskField.select_option = firstOption.id
         }
       }
       wrapper.find('#submit-form-btn').trigger('click')

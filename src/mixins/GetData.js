@@ -23,7 +23,6 @@ export default function (key) {
           .catch(function (error) {
             this.loadingErrors[key] = error
             this.dataLoading = false
-            // this.$data[key] = null
           })
       },
     },

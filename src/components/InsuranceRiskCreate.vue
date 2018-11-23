@@ -146,7 +146,6 @@ export default {
     },
     submitForm () {
       let formIsValid = this.checkForm()
-      // console.log('formIsValid', formIsValid)
       if (!formIsValid) {
         return
       }
@@ -175,16 +174,6 @@ export default {
         let field = this.insuranceRisk.fields[i]
         this.checkRequiredDynamicField(field, i)
       }
-      // for (let [field, index] of this.insuranceRisk.fields) {
-        // this.checkFieldLength(field, textMinLength)
-        // if (field.field_type !== 'select') {
-        //   continue
-        // }
-        // for (let option of field.options) {
-        //   this.checkRequiredField(option)
-        //   this.checkFieldLength(option, textMinLength)
-        // }
-      // }
       return Object.values(this.errors).length === 0
     },
   },
