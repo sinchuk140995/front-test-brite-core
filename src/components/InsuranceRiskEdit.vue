@@ -34,8 +34,8 @@
         :key="field.id"
         class="text box-row"
       >
-        <span class="box-row-item"><i>Name:</i> {{ field.name }}</span>
-        <span class="box-row-item"><i>Type:</i> {{ field.field_type }}</span>
+        <span class="row-item"><i>Name:</i> {{ field.name }}</span>
+        <span class="row-item"><i>Type:</i> {{ field.field_type }}</span>
 
         <i
           :id="`field-delete-link-${index}`"
@@ -89,68 +89,5 @@ export default {
 }
 </script>
 
-<style>
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .header .el-button {
-    margin-left: auto;
-  }
-
-  .header-title {
-    margin-right: 30px;
-    text-transform: uppercase;
-  }
-
-  .text {
-    font-size: 14px;
-  }
-
-  .box-row {
-    display: flex;
-    margin-bottom: 0;
-  }
-
-  .box-row:hover {
-    background-color: #ddd;
-  }
-
-
-  .el-icon-delete {
-    display: block;
-    padding: 15px 5px 15px 5px;
-    border-bottom: 1px solid #ddd;
-  }
-
-  .el-icon-delete:hover {
-    background-color: #EF7C1B;
-  }
-
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-  .clearfix:after {
-    clear: both
-  }
-
-  .box-card {
-    width: 480px;
-    max-width: calc(100vw - 20px);
-  }
-
-  .box-row-item {
-    flex: 1;
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-    transition: background-color 300ms;
-  }
-
+<style scoped>
 </style>

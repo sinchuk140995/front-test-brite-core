@@ -62,6 +62,73 @@ export default {
     flex-grow: 1;
   }
 
+  .box-card {
+    width: 480px;
+    max-width: calc(100vw - 20px);
+  }
+
+  .box-card .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .box-card .header .el-button {
+    margin-left: auto;
+  }
+
+  .box-card .header-title {
+    margin-right: 30px;
+    text-transform: uppercase;
+  }
+
+  .box-card .box-row {
+    display: flex;
+    margin-bottom: 0;
+  }
+
+  .box-card .box-row:hover {
+    background-color: #ddd;
+  }
+
+  .box-card .box-row .row-item {
+    flex: 1;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 300ms;
+  }
+
+  .el-icon-edit,
+  .el-icon-delete {
+    display: block;
+    padding: 15px 5px 15px 5px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .el-icon-edit:hover {
+    background-color: #ffe100;
+  }
+
+  .el-icon-delete:hover {
+    background-color: #f00;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
+
+  .text {
+    font-size: 14px;
+  }
+
   @media screen and (max-width: 400px) {
     .el-menu--horizontal {
       width: 100%;

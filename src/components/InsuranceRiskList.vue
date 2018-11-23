@@ -36,7 +36,7 @@
         class="text box-row"
       >
         <router-link
-          class="link"
+          class="row-item"
           :to="{ name: riskDetailRouteName, params: {id: risk.id} }"
           :key="risk.id"
         >
@@ -118,74 +118,4 @@ export default {
 </script>
 
 <style scoped>
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .header .el-button {
-    margin-left: auto;
-  }
-
-  .header-title {
-    margin-right: 30px;
-    text-transform: uppercase;
-  }
-
-  .text {
-    font-size: 14px;
-  }
-
-  .box-row {
-    display: flex;
-    margin-bottom: 0;
-  }
-
-  .box-row:hover {
-    background-color: #ddd;
-  }
-
-  .el-icon-edit,
-  .el-icon-delete {
-    display: block;
-    padding: 15px 5px 15px 5px;
-    border-bottom: 1px solid #ddd;
-  }
-
-  .el-icon-edit:hover {
-    background-color: #FEE366;
-  }
-
-  .el-icon-delete:hover {
-    background-color: #EF591B;
-  }
-
-  .clearfix:before,
-  .clearfix:after {
-    display: table;
-    content: "";
-  }
-  .clearfix:after {
-    clear: both
-  }
-
-  .box-card {
-    width: 480px;
-    max-width: calc(100vw - 20px);
-  }
-
-  .el-card__body {
-    padding: 0;
-  }
-
-  .link {
-    flex: 1;
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-    transition: background-color 300ms;
-  }
 </style>
