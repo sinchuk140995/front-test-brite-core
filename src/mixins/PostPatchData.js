@@ -64,8 +64,7 @@ export default function (key, successUrlNameRedirect='home') {
             this.$router.push({ name: successUrlNameRedirect })
           })
           .catch(function ({bodyText}) {
-            this.parseErrors(bodyText)
-            this.displayErrors()
+            this.displayErrors(bodyText)
             this.dataUploading = false
           })
       },
