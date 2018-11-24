@@ -65,8 +65,7 @@ export default {
     GoTo,
   ],
   created () {
-    let riskDetailApiUrl = `api/risk/${this.riskId}/`
-    this.fetchResource(riskDetailApiUrl)
+    this.fetchResource(this.riskFetchApiUrl)
   },
   methods: {
     deleteRiskField(arrayIndex) {
@@ -82,8 +81,11 @@ export default {
     hasErrors () {
       return this.hasLoadingErrors
     },
-    riskId () {
-      return this.$route.params.id
+    insuranceRiskId () {
+        return this.$route.params.id || 1
+    },
+    riskFetchApiUrl () {
+        return `api/risk/${this.insuranceRiskId}/`
     },
   },
 }

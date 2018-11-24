@@ -108,4 +108,13 @@ export default {
       },
     }
   },
+
+  ['DELETE *api/field/1/delete/'] () {
+    return {
+      status: 204,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    }
+  },
 }

@@ -50,7 +50,7 @@ describe('InsuranceRiskList.vue', () => {
   it('renders insurance risk links', (done) => {
     const wrapper = factory()
     setTimeout(() => {
-      expect(wrapper.contains('.link')).to.equal(true)
+      expect(wrapper.contains('.row-item')).to.equal(true)
       done()
     }, 100);
   }),
