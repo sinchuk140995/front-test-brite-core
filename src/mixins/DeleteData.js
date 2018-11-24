@@ -1,3 +1,4 @@
+import RemoteDataErrors from './RemoteDataErrors'
 export default function (key) {
   return {
     data () {
@@ -7,6 +8,9 @@ export default function (key) {
       }
       return initData
     },
+    mixins: [
+      RemoteDataErrors('deletingErrors'),
+    ],
     methods: {
       deleteResourceFromList (arrayIndex, deleteRiskApiUrl) {
         if (this.dataDeleting) {
@@ -34,8 +38,7 @@ export default function (key) {
             })
           })
           .catch(function ({bodyText}) {
-            this.parseErrors(bodyText)
-            this.displayDeletingErrors()
+            this.displayErrors(bodyText)
             this.dataDeleting = false
           })
       },
@@ -47,27 +50,6 @@ export default function (key) {
         }
         return property
       },
-      parseErrors (bodyText) {
-        let bodyObj = JSON.parse(bodyText)
-        for (let key in bodyObj) {
-          if (typeof bodyObj[key] === 'array') {
-            for (let error of bodyObj[key]) {
-              this.deletingErrors[key] = error
-            }
-          } else {
-            this.deletingErrors[key] = bodyObj[key]
-          }
-        }
-      },
-      displayDeletingErrors () {
-        for (let errorKey in this.deletingErrors) {
-          this.$message({
-            showClose: true,
-            message: this.deletingErrors[errorKey],
-            type: 'error'
-          });
-        }
-      }
     },
     computed: {
       hasDeletingErrors () {

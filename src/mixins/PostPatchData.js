@@ -1,3 +1,4 @@
+import RemoteDataErrors from './RemoteDataErrors'
 export default function (key, successUrlNameRedirect='home') {
   return {
     data () {
@@ -7,6 +8,9 @@ export default function (key, successUrlNameRedirect='home') {
       }
       return initData
     },
+    mixins: [
+      RemoteDataErrors('uploadingErrors'),
+    ],
     methods: {
       postResource (url) {
         if (this.dataUploading) {
@@ -32,8 +36,7 @@ export default function (key, successUrlNameRedirect='home') {
             this.$router.push({ name: successUrlNameRedirect })
           })
           .catch(function ({bodyText}) {
-            this.parseErrors(bodyText)
-            this.displayUploadingErrors()
+            this.displayErrors(bodyText)
             this.dataUploading = false
           })
       },
@@ -62,27 +65,10 @@ export default function (key, successUrlNameRedirect='home') {
           })
           .catch(function ({bodyText}) {
             this.parseErrors(bodyText)
-            this.displayUploadingErrors()
+            this.displayErrors()
             this.dataUploading = false
           })
       },
-      parseErrors (bodyText) {
-        let bodyObj = JSON.parse(bodyText)
-        for (let key in bodyObj) {
-          for (let error of bodyObj[key]) {
-            this.uploadingErrors[key] = error
-          }
-        }
-      },
-      displayUploadingErrors () {
-        for (let errorKey in this.uploadingErrors) {
-          this.$message({
-            showClose: true,
-            message: this.uploadingErrors[errorKey],
-            type: 'error'
-          });
-        }
-      }
     },
     computed: {
       hasUploadingErrors () {
