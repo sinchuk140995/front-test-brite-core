@@ -13,7 +13,7 @@ import router from '../../src/router'
 Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.use(ElementUI)
-Vue.use(VueResourceMock, MockData, /* { silent: true/false } */)
+Vue.use(VueResourceMock, MockData, true)
 
 
 describe('InsuranceRiskEdit.vue', () => {
@@ -25,7 +25,7 @@ describe('InsuranceRiskEdit.vue', () => {
       const fieldsLengthBeforeDelete = wrapper.vm.insuranceRisk.fields.length
       wrapper.find('#field-delete-link-0').trigger('click')
       setTimeout(() => {
-        expect(wrapper.vm.insuranceRisk.fields.length).to.have.lengthOf(fieldsLengthBeforeDelete - 1)
+        expect(wrapper.vm.insuranceRisk.fields).to.have.lengthOf(fieldsLengthBeforeDelete - 1)
       }, 100)
       done()
     }, 100);

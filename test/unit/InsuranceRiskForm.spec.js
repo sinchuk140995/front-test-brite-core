@@ -12,7 +12,7 @@ import MockData from './MockData'
 Vue.use(VueRouter)
 Vue.use(VueResource)
 Vue.use(ElementUI)
-Vue.use(VueResourceMock, MockData, /* { silent: true/false } */)
+Vue.use(VueResourceMock, MockData, true)
 
 
 const testmode = 'create'

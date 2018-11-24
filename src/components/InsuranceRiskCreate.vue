@@ -1,104 +1,106 @@
 <template>
-  <el-form
-    label-width="120px"
-  >
-    <el-form-item
-      label="Name"
-      :error="errors['riskName']"
+  <div v-loading="loading">
+    <el-form
+      label-width="120px"
     >
-      <el-input
-        id="risk-name-input"
-        type="text"
-        name="name"
-        v-model="insuranceRisk.name"
+      <el-form-item
+        label="Name"
+        :error="errors['riskName']"
       >
-      </el-input>
-    </el-form-item>
-
-    <el-row>
-      <h4>Fields</h4>
-    </el-row>
-    <el-form-item
-      v-for="(field, index) in insuranceRisk.fields"
-      label="Name"
-      :key="index"
-      :error="errors[index]"
-    >
-      <el-row
-        type="flex"
-        class="row-bg"
-        justify="space-around"
-      >
-        <el-col>
-          <el-input
-            :id="`risk-field-name-${index}`"
-            type="text"
-            placeholder="Name"
-            v-model="field.name"
-          >
-          </el-input>
-        </el-col>
-        <el-col class="type-column">
-          <el-form-item
-            label="Type"
-          >
-            <el-select
-              @change="fieldChange(field)"
-              v-model="field.field_type"
-            >
-              <el-option
-                v-for="(type, index) in types"
-                :key="index"
-                :value="type.htmlName"
-                :label="type.name"
-              >
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-      </el-row>
-
-      <el-row
-        v-if="field.field_type === 'select'"
-      >
-        <el-form-item
-          class="option"
-          v-for="(option, optionIndex) in field.options"
-          :key="optionIndex"
-          :error="errors[index + '-option-' + optionIndex]"
+        <el-input
+          id="risk-name-input"
+          type="text"
+          name="name"
+          v-model="insuranceRisk.name"
         >
-          <el-input
-            type="text"
-            placeholder="Options"
-            v-model="field.options[optionIndex]['name']"
-          >
-          </el-input>
-          <el-button v-if="optionIndex === field.options.length - 1" icon="el-icon-plus" circle type="info" @click="addOption(field)"></el-button>
-        </el-form-item>
+        </el-input>
+      </el-form-item>
 
-
+      <el-row>
+        <h4>Fields</h4>
       </el-row>
-    </el-form-item>
+      <el-form-item
+        v-for="(field, index) in insuranceRisk.fields"
+        label="Name"
+        :key="index"
+        :error="errors[index]"
+      >
+        <el-row
+          type="flex"
+          class="row-bg"
+          justify="space-around"
+        >
+          <el-col>
+            <el-input
+              :id="`risk-field-name-${index}`"
+              type="text"
+              placeholder="Name"
+              v-model="field.name"
+            >
+            </el-input>
+          </el-col>
+          <el-col class="type-column">
+            <el-form-item
+              label="Type"
+            >
+              <el-select
+                @change="fieldChange(field)"
+                v-model="field.field_type"
+              >
+                <el-option
+                  v-for="(type, index) in types"
+                  :key="index"
+                  :value="type.htmlName"
+                  :label="type.name"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
 
-    <el-form-item>
-      <el-button
-        id="add-field-btn"
-        icon="el-icon-circle-plus-outline"
-        type="primary"
-        @click="addField"
-      >
-        Add field
-      </el-button>
-      <el-button
-        id="submit-form-btn"
-        icon="el-icon-circle-plus-outline"
-        type="success"
-        @click="submitForm"
-      >
-        Save
-      </el-button>
-    </el-form-item>
-  </el-form>
+        <el-row
+          v-if="field.field_type === 'select'"
+        >
+          <el-form-item
+            class="option"
+            v-for="(option, optionIndex) in field.options"
+            :key="optionIndex"
+            :error="errors[index + '-option-' + optionIndex]"
+          >
+            <el-input
+              type="text"
+              placeholder="Options"
+              v-model="field.options[optionIndex]['name']"
+            >
+            </el-input>
+            <el-button v-if="optionIndex === field.options.length - 1" icon="el-icon-plus" circle type="info" @click="addOption(field)"></el-button>
+          </el-form-item>
+
+
+        </el-row>
+      </el-form-item>
+
+      <el-form-item>
+        <el-button
+          id="add-field-btn"
+          icon="el-icon-circle-plus-outline"
+          type="primary"
+          @click="addField"
+        >
+          Add field
+        </el-button>
+        <el-button
+          id="submit-form-btn"
+          icon="el-icon-circle-plus-outline"
+          type="success"
+          @click="submitForm"
+        >
+          Save
+        </el-button>
+      </el-form-item>
+    </el-form>
+  </div>
 </template>
 
 <script>
@@ -146,10 +148,9 @@ export default {
     },
     submitForm () {
       let formIsValid = this.checkForm()
-      if (!formIsValid) {
-        return
+      if (formIsValid) {
+        this.postResource(this.riskPushApiUrl)
       }
-      this.postResource(this.riskPushApiUrl)
     },
     checkForm () {
       this.errors = {}
@@ -175,6 +176,14 @@ export default {
         this.checkRequiredDynamicField(field, i)
       }
       return Object.values(this.errors).length === 0
+    },
+  },
+  computed: {
+    loading () {
+      return this.dataUploading
+    },
+    hasErrors () {
+      return this.hasUploadingErrors
     },
   },
 }

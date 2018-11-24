@@ -58,6 +58,7 @@ export default {
           options: [
             { id: 1, name: 'Option 1', },
             { id: 2, name: 'Option 2', },
+            { id: 3, name: 'Option 3', },
           ],
         },
 
@@ -73,7 +74,7 @@ export default {
     }
   },
 
-  ['POST */api/client/risk/create/'] () {
+  ['POST *api/client/risk/create/'] () {
     return {
       status: 201,
       headers: {
@@ -82,7 +83,7 @@ export default {
     }
   },
 
-  ['POST */api/risk/create/'] () {
+  ['POST *api/risk/create/'] () {
     return {
       status: 201,
       headers: {

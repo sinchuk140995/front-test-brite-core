@@ -108,7 +108,7 @@ export default {
   },
   computed: {
     loading () {
-      return this.dataLoading
+      return this.dataLoading || this.dataDeleting
     },
     hasErrors () {
       return this.hasLoadingErrors

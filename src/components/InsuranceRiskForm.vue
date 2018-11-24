@@ -122,7 +122,7 @@ export default {
   },
   computed: {
     loading () {
-      return this.loadingData || this.dataUploading
+      return this.dataLoading || this.dataUploading
     },
     hasErrors () {
       return this.hasLoadingErrors || this.hasUploadingErrors
